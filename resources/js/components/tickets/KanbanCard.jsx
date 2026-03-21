@@ -36,8 +36,16 @@ export default function KanbanCard({ ticket, onClick }) {
             {...attributes}
             {...listeners}
             onClick={() => onClick(ticket.id)}
-            className="group relative bg-[var(--bg-raised)] border border-[var(--border-default)] hover:border-[var(--border-strong)] rounded-[var(--radius-lg)] p-3 cursor-grab active:cursor-grabbing shadow-sm hover:shadow transition-all"
+            className="group relative bg-[var(--bg-raised)] border border-[var(--border-default)] hover:border-[var(--border-strong)] rounded-[var(--radius-lg)] p-3.5 cursor-grab active:cursor-grabbing shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-200"
         >
+            {/* Priority left accent bar */}
+            {ticket.priority === 'urgent' && (
+                <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-[var(--accent-red)]" />
+            )}
+            {ticket.priority === 'high' && (
+                <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-[var(--accent-orange)]" />
+            )}
+
             <div className="flex justify-between items-start mb-2">
                 <span className="text-[var(--text-tiny)] font-mono text-[var(--text-tertiary)] bg-[var(--bg-surface)] px-1.5 py-0.5 rounded-[var(--radius-sm)]">
                     {ticket.ticket_number}
@@ -45,7 +53,7 @@ export default function KanbanCard({ ticket, onClick }) {
                 <PriorityIndicator priority={ticket.priority} />
             </div>
             
-            <h4 className="text-[var(--text-label)] text-[var(--text-primary)] font-medium mb-3 leading-snug line-clamp-2">
+            <h4 className="text-[var(--text-label)] text-[var(--text-primary)] font-medium mb-3 leading-snug line-clamp-2 group-hover:text-[var(--accent-blue)] transition-colors">
                 {ticket.title}
             </h4>
 
@@ -60,7 +68,6 @@ export default function KanbanCard({ ticket, onClick }) {
 
             <div className="flex items-center justify-between text-[var(--text-tiny)] text-[var(--text-tertiary)] pt-2 border-t border-[var(--border-subtle)] mt-2">
                 <div className="flex items-center gap-3">
-                    {/* These counts aren't eager loaded in Board by default, we'd need them or just mock */}
                     {ticket.notes_count > 0 && (
                         <div className="flex items-center gap-1">
                             <MessageSquare className="w-3.5 h-3.5" /> {ticket.notes_count}

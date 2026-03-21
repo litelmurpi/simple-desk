@@ -127,10 +127,10 @@ export default function Board({ tickets: initialTickets, subjects }) {
         <AppLayout title="Board">
             <Head title="Board" />
 
-            <div className="max-w-full h-[calc(100vh-140px)] flex flex-col pt-4">
+            <div className="max-w-full h-[calc(100vh-140px)] flex flex-col pt-4 anim-fade-in-up">
                 <div className="mb-[var(--space-6)] px-[var(--space-6)] shrink-0">
-                    <h1 className="text-[var(--text-display)] text-[var(--text-primary)] font-bold tracking-tight">Kanban Board</h1>
-                    <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">
+                    <h1 className="page-title">Kanban Board</h1>
+                    <p className="page-subtitle">
                         Drag and drop tickets to update their status.
                     </p>
                 </div>
@@ -143,7 +143,7 @@ export default function Board({ tickets: initialTickets, subjects }) {
                         onDragOver={handleDragOver}
                         onDragEnd={handleDragEnd}
                     >
-                        <div className="flex w-fit gap-[var(--space-5)] h-full items-start">
+                        <div className="flex w-fit gap-[var(--space-4)] h-full items-start stagger-children">
                             {COLUMNS.map(col => (
                                 <KanbanColumn 
                                     key={col.id}

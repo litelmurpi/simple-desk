@@ -77,7 +77,7 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
         <AppLayout title="Calendar">
             <Head title="Calendar" />
 
-            <div className="flex h-[calc(100vh-8rem)]">
+            <div className="flex h-[calc(100vh-8rem)] anim-fade-in-up">
                 {/* Main Calendar Area */}
                 <div className={cn(
                     "flex flex-col flex-1 min-w-0 transition-all duration-300",
@@ -86,10 +86,10 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                     {/* Header */}
                     <div className="flex items-center justify-between mb-[var(--space-6)]">
                         <div className="flex items-center gap-[var(--space-4)]">
-                            <h1 className="text-[var(--text-display)] text-[var(--text-primary)] tracking-tight">
-                                {monthName} <span className="text-[var(--text-tertiary)]">{currentYear}</span>
+                            <h1 className="page-title">
+                                {monthName} <span className="text-[var(--text-tertiary)] font-normal">{currentYear}</span>
                             </h1>
-                            <div className="flex items-center bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-md)] p-0.5">
+                            <div className="flex items-center bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-md)] p-0.5 shadow-[var(--shadow-sm)]">
                                 <Button variant="ghost" size="sm" onClick={() => navigateMonth(-1)} className="h-7 px-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]">
                                     <ChevronLeft className="w-4 h-4" />
                                 </Button>
@@ -100,25 +100,28 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                className="h-8 text-[var(--text-secondary)] border border-[var(--border-subtle)]"
+                                className="h-8 text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:border-[var(--border-strong)] transition-colors"
                                 onClick={() => router.get(route('calendar'))}
                             >
                                 Today
                             </Button>
                         </div>
                         <Link href={route('tickets.create')}>
-                            <Button className="bg-[var(--accent-blue)] text-white hover:opacity-90">
+                            <Button className="bg-[var(--accent-blue)] text-white hover:bg-blue-600 shadow-sm transition-colors">
                                 <Plus className="w-4 h-4 mr-2" /> New Issue
                             </Button>
                         </Link>
                     </div>
 
                     {/* Grid */}
-                    <div className="flex-1 bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] overflow-hidden shadow-sm flex flex-col">
+                    <div className="flex-1 card-elevated overflow-hidden flex flex-col">
                         {/* Days of week */}
-                        <div className="grid grid-cols-7 border-b border-[var(--border-default)] bg-[var(--bg-surface)]">
-                            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                                <div key={day} className="py-[var(--space-3)] text-center text-[var(--text-label)] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">
+                        <div className="grid grid-cols-7 border-b border-[var(--border-default)]">
+                            {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((day, i) => (
+                                <div key={day} className={cn(
+                                    "section-header py-[var(--space-3)] text-center text-[var(--text-tiny)] font-semibold tracking-widest",
+                                    i >= 5 ? "text-[var(--text-disabled)]" : "text-[var(--text-tertiary)]"
+                                )}>
                                     {day}
                                 </div>
                             ))}
@@ -127,35 +130,38 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                         {/* Cells */}
                         <div className="flex-1 flex flex-col overflow-y-auto min-h-0 bg-[var(--bg-base)]">
                             {grid.map((row, i) => (
-                                <div key={i} className="grid grid-cols-7 flex-1 min-h-[100px] border-b border-[var(--border-default)] last:border-0">
+                                <div key={i} className="grid grid-cols-7 flex-1 min-h-[100px] border-b border-[var(--border-subtle)] last:border-0">
                                     {row.map((day, j) => {
                                         const isToday = day && today.getDate() === day && today.getMonth() + 1 === currentMonth && today.getFullYear() === currentYear;
                                         const dayTickets = day ? (ticketsByDate[day] || []) : [];
                                         const isSelected = selectedDate === day && isPanelOpen;
+                                        const isWeekend = j >= 5;
 
                                         return (
                                             <div 
                                                 key={j} 
                                                 onClick={() => day && dayTickets.length > 0 && openPanel(day)}
                                                 className={cn(
-                                                    "p-[var(--space-3)] border-r border-[var(--border-default)] last:border-r-0 flex flex-col transition-colors",
-                                                    !day ? "bg-[var(--bg-surface)] opacity-40 cursor-default" : (dayTickets.length > 0 ? "cursor-pointer hover:bg-[var(--bg-subtle)]" : "cursor-default"),
-                                                    isSelected && "bg-[var(--bg-subtle)] ring-1 ring-inset ring-[var(--accent-blue)]"
+                                                    "p-[var(--space-3)] border-r border-[var(--border-subtle)] last:border-r-0 flex flex-col transition-colors",
+                                                    !day ? "bg-[var(--bg-surface)] opacity-30 cursor-default" : (dayTickets.length > 0 ? "cursor-pointer hover:bg-[var(--bg-subtle)]" : "cursor-default"),
+                                                    isSelected && "bg-[var(--accent-blue-soft)] ring-1 ring-inset ring-[var(--accent-blue)]",
+                                                    isToday && !isSelected && "bg-[rgba(59,130,246,0.04)]",
+                                                    isWeekend && day && !isSelected && !isToday && "bg-[rgba(0,0,0,0.15)]"
                                                 )}
                                             >
                                                 {day && (
                                                     <div className="flex items-start justify-between">
                                                         <span className={cn(
-                                                            "w-7 h-7 flex items-center justify-center rounded-full text-[var(--text-label)] mb-2",
+                                                            "w-7 h-7 flex items-center justify-center rounded-full text-[var(--text-label)] mb-2 transition-all",
                                                             isToday 
-                                                                ? "bg-[var(--accent-blue)] text-white shadow-[var(--shadow-glow)]" 
-                                                                : "text-[var(--text-primary)]"
+                                                                ? "bg-[var(--accent-blue)] text-white shadow-[var(--shadow-glow)] font-semibold" 
+                                                                : isWeekend ? "text-[var(--text-tertiary)]" : "text-[var(--text-primary)]"
                                                         )}>
                                                             {day}
                                                         </span>
                                                         {dayTickets.length > 0 && (
-                                                            <span className="text-[var(--text-tiny)] text-[var(--text-tertiary)] font-medium">
-                                                                {dayTickets.length} tasks
+                                                            <span className="text-[10px] text-[var(--accent-blue)] font-semibold bg-[var(--accent-blue-soft)] px-1.5 py-0.5 rounded-[var(--radius-sm)]">
+                                                                {dayTickets.length}
                                                             </span>
                                                         )}
                                                     </div>
@@ -185,8 +191,8 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
 
                 {/* Side Panel */}
                 {isPanelOpen && (
-                    <div className="w-[400px] flex-shrink-0 bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] shadow-sm flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in">
-                        <div className="px-[var(--space-4)] py-[var(--space-3)] border-b border-[var(--border-default)] bg-[var(--bg-surface)] flex justify-between items-center">
+                    <div className="w-[400px] flex-shrink-0 card-elevated flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in">
+                        <div className="section-header flex justify-between items-center">
                             <div>
                                 <h3 className="text-[var(--text-heading)] font-semibold text-[var(--text-primary)]">
                                     {new Date(currentYear, currentMonth - 1, selectedDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -197,7 +203,7 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                                 <X className="w-4 h-4" />
                             </Button>
                         </div>
-                        <div className="flex-1 overflow-y-auto p-0 flex flex-col divide-y divide-[var(--border-default)]">
+                        <div className="flex-1 overflow-y-auto p-0 flex flex-col divide-y divide-[var(--border-subtle)]">
                             {selectedTickets.map(ticket => (
                                 <Link 
                                     key={ticket.id}

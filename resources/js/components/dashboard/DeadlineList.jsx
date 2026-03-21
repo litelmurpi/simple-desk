@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { CalendarDays, AlertCircle } from 'lucide-react';
+import { CalendarDays, AlertCircle, PartyPopper } from 'lucide-react';
 import { StatusBadge } from '@/components/tickets/StatusBadge';
 import { PriorityIndicator } from '@/components/tickets/PriorityIndicator';
 import { cn } from '@/lib/utils';
@@ -16,14 +16,16 @@ export default function DeadlineList({ today, thisWeek }) {
 
     if (!hasTickets) {
         return (
-            <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] p-[var(--space-6)] text-center shadow-sm h-full flex flex-col items-center justify-center">
-                <div className="w-12 h-12 bg-green-500/10 text-[var(--accent-green)] rounded-full flex items-center justify-center mb-4">
-                    <CalendarDays className="w-6 h-6" />
+            <div className="card-elevated h-full flex flex-col items-center justify-center anim-fade-in-up" style={{ animationDelay: '150ms' }}>
+                <div className="empty-state">
+                    <div className="empty-state-icon bg-[var(--accent-green-soft)]">
+                        <PartyPopper className="w-6 h-6 text-[var(--accent-green)]" />
+                    </div>
+                    <p className="empty-state-title">You're all caught up!</p>
+                    <p className="empty-state-description">
+                        No immediate deadlines for today or the rest of the week. Nice work.
+                    </p>
                 </div>
-                <h3 className="text-[var(--text-label)] font-semibold text-[var(--text-primary)] mb-1">You're all caught up!</h3>
-                <p className="text-[var(--text-caption)] text-[var(--text-tertiary)] max-w-[250px]">
-                    No immediate deadlines for today or the rest of the week.
-                </p>
             </div>
         );
     }
@@ -31,7 +33,7 @@ export default function DeadlineList({ today, thisWeek }) {
     const TicketRow = ({ ticket, isUrgent }) => (
         <Link 
             href={route('tickets.show', ticket.id)}
-            className="group block p-[var(--space-3)] rounded-[var(--radius-lg)] hover:bg-[var(--bg-surface)] transition-colors border border-transparent hover:border-[var(--border-subtle)]"
+            className="group block p-[var(--space-3)] rounded-[var(--radius-lg)] hover:bg-[var(--bg-surface)] transition-all border border-transparent hover:border-[var(--border-subtle)]"
         >
             <div className="flex items-start gap-3">
                 <div className="mt-1">
@@ -53,7 +55,7 @@ export default function DeadlineList({ today, thisWeek }) {
                                 <span>{ticket.subject.code || ticket.subject.name}</span>
                             </div>
                         )}
-                        <span className="text-[var(--text-tertiary)]">•</span>
+                        <span className="text-[var(--text-disabled)]">•</span>
                         <span className={cn("font-medium", isUrgent ? "text-[var(--accent-red)]" : "text-[var(--text-secondary)]")}>
                             {isUrgent ? 'Due Today' : `Due ${dayjs(ticket.deadline_at).format('ddd, MMM D')}`}
                         </span>
@@ -64,8 +66,8 @@ export default function DeadlineList({ today, thisWeek }) {
     );
 
     return (
-        <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] flex flex-col h-full shadow-sm overflow-hidden">
-            <div className="px-[var(--space-5)] py-[var(--space-4)] border-b border-[var(--border-default)] bg-[var(--bg-surface)] flex justify-between items-center">
+        <div className="card-elevated flex flex-col h-full overflow-hidden anim-fade-in-up" style={{ animationDelay: '150ms' }}>
+            <div className="section-header flex justify-between items-center">
                 <h3 className="text-[var(--text-heading)] font-semibold text-[var(--text-primary)] flex items-center gap-2">
                     <CalendarDays className="w-4 h-4 text-[var(--accent-blue)]" />
                     Upcoming Deadlines

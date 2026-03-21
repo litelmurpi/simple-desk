@@ -8,20 +8,18 @@ import {
     Tooltip, 
     ResponsiveContainer 
 } from 'recharts';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, Sparkles } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
 
 export default function ProductivityChart({ data }) {
-    // Reverse data if it comes descending (today first) -> we want chronological (left to right)
-    // Actually our backend generated range(13,0) which is 13 days ago to today, so it is already chronological!
-    
-    // Check if empty
     const totalCompleted = useMemo(() => {
         return data.reduce((sum, item) => sum + item.completed, 0);
     }, [data]);
 
     return (
-        <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] shadow-sm overflow-hidden flex flex-col h-full min-h-[350px]">
-            <div className="px-[var(--space-5)] py-[var(--space-4)] border-b border-[var(--border-default)] bg-[var(--bg-surface)] flex justify-between items-center">
+        <div className="card-elevated overflow-hidden flex flex-col h-full min-h-[350px] anim-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <div className="section-header flex justify-between items-center">
                 <h3 className="text-[var(--text-heading)] font-semibold text-[var(--text-primary)] flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[var(--accent-green)]" />
                     Productivity (Last 14 Days)
@@ -30,16 +28,23 @@ export default function ProductivityChart({ data }) {
             
             <div className="p-[var(--space-6)] flex-1 w-full h-full relative">
                 {totalCompleted === 0 ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-secondary)] z-10">
-                        <TrendingUp className="w-10 h-10 mb-2 opacity-50" />
-                        <p className="text-[var(--text-label)] font-medium text-[var(--text-primary)]">No activity recently.</p>
-                        <p className="text-[var(--text-tiny)] text-[var(--text-tertiary)] text-center max-w-[200px] mt-1">
-                            Complete tickets to see your productivity trend.
+                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+                        <div className="empty-state-icon bg-[var(--accent-green-soft)]">
+                            <Sparkles className="w-6 h-6 text-[var(--accent-green)]" />
+                        </div>
+                        <p className="empty-state-title">No activity yet</p>
+                        <p className="empty-state-description mb-4">
+                            Start completing tickets to see your productivity trend come alive.
                         </p>
+                        <Link href={route('tickets.create')}>
+                            <Button size="sm" className="bg-[var(--accent-blue)] text-white hover:bg-blue-600 shadow-sm text-[var(--text-caption)]">
+                                Create Your First Ticket
+                            </Button>
+                        </Link>
                     </div>
                 ) : null}
                 
-                <div className={`w-full h-full min-h-[250px] ${totalCompleted === 0 ? 'opacity-20 grayscale pointer-events-none' : ''}`}>
+                <div className={`w-full h-full min-h-[250px] ${totalCompleted === 0 ? 'opacity-10 grayscale pointer-events-none' : ''}`}>
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart
                             data={data}
@@ -51,7 +56,7 @@ export default function ProductivityChart({ data }) {
                                     <stop offset="95%" stopColor="var(--accent-green)" stopOpacity={0}/>
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-default)" />
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-subtle)" />
                             <XAxis 
                                 dataKey="date" 
                                 axisLine={false}
@@ -85,10 +90,10 @@ export default function ProductivityChart({ data }) {
                                 dataKey="completed" 
                                 name="Tickets Done"
                                 stroke="var(--accent-green)" 
-                                strokeWidth={3}
+                                strokeWidth={2.5}
                                 fillOpacity={1} 
                                 fill="url(#colorCompleted)" 
-                                activeDot={{ r: 6, fill: 'var(--accent-green)', stroke: 'var(--bg-base)', strokeWidth: 2 }}
+                                activeDot={{ r: 5, fill: 'var(--accent-green)', stroke: 'var(--bg-base)', strokeWidth: 2 }}
                             />
                         </AreaChart>
                     </ResponsiveContainer>

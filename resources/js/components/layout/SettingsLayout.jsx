@@ -18,10 +18,10 @@ export default function SettingsLayout({ children, title }) {
         <AppLayout title={`Settings - ${title}`}>
             <Head title={`Settings - ${title}`} />
 
-            <div className="max-w-[1000px] mx-auto animate-in fade-in duration-500">
+            <div className="max-w-[1000px] mx-auto anim-fade-in-up">
                 <div className="mb-[var(--space-8)]">
-                    <h1 className="text-[var(--text-display)] text-[var(--text-primary)] font-bold tracking-tight">Settings</h1>
-                    <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">Manage your application preferences and data.</p>
+                    <h1 className="page-title">Settings</h1>
+                    <p className="page-subtitle">Manage your application preferences and data.</p>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-[var(--space-8)]">

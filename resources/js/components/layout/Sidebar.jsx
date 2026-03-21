@@ -43,11 +43,11 @@ export default function Sidebar({ className, onNavigate }) {
   const renderNavGroup = (items, label) => (
     <div className="mb-6">
       {label && (
-        <h4 className="px-4 mb-2 text-xs font-semibold uppercase tracking-wider text-text-tertiary">
+        <h4 className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-text-tertiary">
           {label}
         </h4>
       )}
-      <ul className="space-y-1 px-2">
+      <ul className="space-y-0.5 px-2">
         {items.map((item) => {
           const active = isActive(item.href);
           const Icon = item.icon;
@@ -57,13 +57,20 @@ export default function Sidebar({ className, onNavigate }) {
                 href={item.href}
                 onClick={onNavigate}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-md transition-colors duration-fast text-body",
+                  "flex items-center gap-3 px-3 py-2 rounded-[var(--radius-md)] transition-all text-[var(--text-label)] group relative",
                   active 
-                    ? "bg-accent-blue-soft text-accent-blue font-medium" 
-                    : "text-text-secondary hover:bg-bg-surface hover:text-text-primary"
+                    ? "bg-[var(--accent-blue-soft)] text-[var(--accent-blue)] font-semibold" 
+                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
                 )}
               >
-                <Icon size={18} className={active ? "text-accent-blue" : "text-text-tertiary"} />
+                {/* Active indicator bar */}
+                {active && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-[var(--accent-blue)] rounded-full" />
+                )}
+                <Icon size={17} strokeWidth={active ? 2.2 : 1.8} className={cn(
+                  "transition-colors flex-shrink-0",
+                  active ? "text-[var(--accent-blue)]" : "text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]"
+                )} />
                 {item.name}
               </Link>
             </li>
@@ -76,10 +83,10 @@ export default function Sidebar({ className, onNavigate }) {
   return (
     <aside className={cn("flex flex-col h-full bg-card border-r border-border text-text-primary", className)}>
       <div className="p-5 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-md bg-accent-blue flex items-center justify-center text-text-inverse font-bold shadow-glow">
+        <div className="w-8 h-8 rounded-[var(--radius-md)] bg-[var(--accent-blue)] flex items-center justify-center text-white font-bold text-[var(--text-caption)] shadow-[var(--shadow-sm)]">
           SD
         </div>
-        <span className="font-bold text-heading tracking-tight">SimpleDesk</span>
+        <span className="font-bold text-[var(--text-heading)] text-[var(--text-primary)] tracking-tight">SimpleDesk</span>
       </div>
 
       <div className="flex-1 overflow-y-auto py-2 scrollbar-thin">
@@ -91,14 +98,14 @@ export default function Sidebar({ className, onNavigate }) {
         </div>
       </div>
 
-      <div className="p-4 border-t border-border/50">
-        <div className="flex items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-bg-surface transition-colors">
-          <div className="w-8 h-8 rounded-full bg-bg-subtle border border-border flex items-center justify-center text-text-secondary">
-            R
+      <div className="p-3 border-t border-border/50">
+        <div className="flex items-center gap-3 cursor-pointer p-2 rounded-[var(--radius-md)] hover:bg-[var(--bg-surface)] transition-colors group">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)] flex items-center justify-center text-white text-[var(--text-tiny)] font-bold shadow-sm">
+            YA
           </div>
-          <div className="flex flex-col">
-            <span className="text-label text-text-primary">Raka</span>
-            <span className="text-tiny text-text-tertiary">SI Student</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[var(--text-label)] text-[var(--text-primary)] font-medium truncate">Yudistira Azfa</span>
+            <span className="text-[var(--text-tiny)] text-[var(--text-tertiary)] truncate">Information System Student</span>
           </div>
         </div>
       </div>

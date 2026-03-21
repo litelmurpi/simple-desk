@@ -9,21 +9,18 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Dashboard({ stats, deadlines, subjectProgress, chartData }) {
-    React.useEffect(() => {
-        // Log to console for debugging
-        console.log("Dashboard Data Loaded:", { stats, deadlines, subjectProgress });
-    }, [stats, deadlines, subjectProgress]);
+
 
     return (
         <AppLayout title="Dashboard">
             <Head title="Dashboard" />
 
-            <div className="max-w-[1600px] mx-auto space-y-[var(--space-8)] animate-in fade-in duration-500">
+            <div className="max-w-[1600px] mx-auto space-y-[var(--space-8)] anim-fade-in-up">
                 {/* Header Area */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[var(--space-4)]">
                     <div>
-                        <h1 className="text-[var(--text-display)] text-[var(--text-primary)] font-bold tracking-tight">Overview</h1>
-                        <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">Here's what's happening with your projects today.</p>
+                        <h1 className="page-title">Overview</h1>
+                        <p className="page-subtitle">Here's what's happening with your projects today.</p>
                     </div>
                     
                     <div className="flex items-center gap-3">
