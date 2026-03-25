@@ -66,7 +66,7 @@ export default function Archive({ tickets }) {
                                             <div className="flex items-center gap-3">
                                                 <PriorityIndicator priority={ticket.priority} />
                                                 <div>
-                                                    <Link href={route('tickets.show', ticket.id)} className="font-medium hover:text-[var(--accent-blue)] transition-colors">
+                                                    <Link href={route('tickets.show', ticket.id)} className="font-medium hover:text-[var(--accent-orange)] transition-colors">
                                                         {ticket.title}
                                                     </Link>
                                                     <div className="text-[var(--text-tiny)] text-[var(--text-tertiary)] mt-0.5 font-mono">{ticket.ticket_number}</div>

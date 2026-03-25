@@ -107,7 +107,7 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                             </Button>
                         </div>
                         <Link href={route('tickets.create')}>
-                            <Button className="bg-[var(--accent-blue)] text-white hover:bg-blue-600 shadow-sm transition-colors">
+                            <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 shadow-sm transition-colors">
                                 <Plus className="w-4 h-4 mr-2" /> New Issue
                             </Button>
                         </Link>
@@ -144,8 +144,8 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                                                 className={cn(
                                                     "p-[var(--space-3)] border-r border-[var(--border-subtle)] last:border-r-0 flex flex-col transition-colors",
                                                     !day ? "bg-[var(--bg-surface)] opacity-30 cursor-default" : (dayTickets.length > 0 ? "cursor-pointer hover:bg-[var(--bg-subtle)]" : "cursor-default"),
-                                                    isSelected && "bg-[var(--accent-blue-soft)] ring-1 ring-inset ring-[var(--accent-blue)]",
-                                                    isToday && !isSelected && "bg-[rgba(59,130,246,0.04)]",
+                                                    isSelected && "bg-[var(--accent-orange-soft)] ring-1 ring-inset ring-[var(--accent-orange)]",
+                                                    isToday && !isSelected && "bg-[rgba(249,115,22,0.04)]",
                                                     isWeekend && day && !isSelected && !isToday && "bg-[rgba(0,0,0,0.15)]"
                                                 )}
                                             >
@@ -154,14 +154,14 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                                                         <span className={cn(
                                                             "w-7 h-7 flex items-center justify-center rounded-full text-[var(--text-label)] mb-2 transition-all",
                                                             isToday 
-                                                                ? "bg-[var(--accent-blue)] text-white shadow-[var(--shadow-glow)] font-semibold" 
+                                                                ? "bg-[var(--accent-orange)] text-white shadow-lg shadow-[var(--accent-orange-soft)] font-semibold" 
                                                                 : isWeekend ? "text-[var(--text-tertiary)]" : "text-[var(--text-primary)]"
                                                         )}>
                                                             {day}
                                                         </span>
                                                         {dayTickets.length > 0 && (
-                                                            <span className="text-[10px] text-[var(--accent-blue)] font-semibold bg-[var(--accent-blue-soft)] px-1.5 py-0.5 rounded-[var(--radius-sm)]">
-                                                                {dayTickets.length}
+                                                            <span className="text-[10px] text-[var(--accent-orange)] font-semibold bg-[var(--accent-orange-soft)] px-1.5 py-0.5 rounded-[var(--radius-sm)] border border-[var(--accent-orange)]/20">
+                                                                {dayTickets.length} due
                                                             </span>
                                                         )}
                                                     </div>
@@ -216,7 +216,7 @@ export default function Calendar({ tickets, currentYear, currentMonth }) {
                                             <PriorityIndicator priority={ticket.priority} showLabel={false} />
                                         </div>
                                     </div>
-                                    <h4 className="text-[var(--text-body)] font-medium text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-blue)] transition-colors line-clamp-2">
+                                    <h4 className="text-[var(--text-body)] font-medium text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-orange)] transition-colors line-clamp-2">
                                         {ticket.title}
                                     </h4>
                                     <div className="flex items-center gap-2 text-[var(--text-tiny)]">

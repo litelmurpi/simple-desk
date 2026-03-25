@@ -80,7 +80,7 @@ export default function Security({ isAppLockEnabled }) {
                             <Button 
                                 variant={isAppLockEnabled ? "outline" : "default"}
                                 onClick={handleToggleClick}
-                                className={!isAppLockEnabled ? "bg-[var(--accent-blue)] text-white hover:bg-blue-600" : ""}
+                                className={!isAppLockEnabled ? "bg-[var(--accent-orange)] text-white hover:opacity-90" : ""}
                             >
                                 {isAppLockEnabled ? 'Disable Lock' : 'Enable Lock'}
                             </Button>
@@ -102,7 +102,7 @@ export default function Security({ isAppLockEnabled }) {
                                             type="password"
                                             value={data.current_password}
                                             onChange={(e) => setData('current_password', e.target.value)}
-                                            className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-blue)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
+                                            className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-orange)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
                                             required
                                         />
                                         {errors.current_password && <p className="text-[var(--text-tiny)] text-[var(--accent-red)] mt-1">{errors.current_password}</p>}
@@ -117,7 +117,7 @@ export default function Security({ isAppLockEnabled }) {
                                                 type="password"
                                                 value={data.new_password}
                                                 onChange={(e) => setData('new_password', e.target.value)}
-                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-blue)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
+                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-orange)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
                                                 required
                                                 minLength="4"
                                             />
@@ -129,7 +129,7 @@ export default function Security({ isAppLockEnabled }) {
                                                 type="password"
                                                 value={data.new_password_confirmation}
                                                 onChange={(e) => setData('new_password_confirmation', e.target.value)}
-                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-blue)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
+                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-orange)] rounded-[var(--radius-md)] px-3 py-2 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
                                                 required
                                                 minLength="4"
                                             />
@@ -139,7 +139,7 @@ export default function Security({ isAppLockEnabled }) {
 
                                 <div className="flex items-center gap-3 pt-2">
                                     <Button type="button" variant="ghost" onClick={cancelEdit} className="text-[var(--text-secondary)]">Cancel</Button>
-                                    <Button type="submit" disabled={processing} className="bg-[var(--accent-blue)] text-white hover:bg-blue-600">
+                                    <Button type="submit" disabled={processing} className="bg-[var(--accent-orange)] text-white hover:opacity-90">
                                         {data.enabled ? 'Save Password' : 'Confirm Disable'}
                                     </Button>
                                 </div>

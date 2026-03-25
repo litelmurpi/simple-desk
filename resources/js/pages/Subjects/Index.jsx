@@ -24,7 +24,7 @@ export default function Index({ subjects }) {
                             {subject.code ? subject.code.substring(0, 2) : <BookOpen className="w-5 h-5" />}
                         </div>
                         <div>
-                            <h3 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors leading-tight">
+                            <h3 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-orange)] transition-colors leading-tight">
                                 {subject.name}
                             </h3>
                             {subject.code && (
@@ -48,7 +48,7 @@ export default function Index({ subjects }) {
                     {/* Progress Bar */}
                     <div className="h-2 w-full bg-[var(--bg-subtle)] rounded-full overflow-hidden">
                         <div 
-                            className={cn("h-full transition-all duration-500", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-blue)]")} 
+                            className={cn("h-full transition-all duration-500", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-orange)]")} 
                             style={{ width: `${subject.progress}%` }} 
                         />
                     </div>
@@ -93,7 +93,7 @@ export default function Index({ subjects }) {
                         </p>
                         <Button 
                             onClick={() => router.get(route('settings.subjects.index'))}
-                            className="bg-[var(--accent-blue)] text-white hover:opacity-90"
+                            className="bg-[var(--accent-orange)] text-white hover:opacity-90"
                         >
                             <Plus className="w-4 h-4 mr-2" /> Add Your First Subject
                         </Button>
@@ -104,7 +104,7 @@ export default function Index({ subjects }) {
                         {activeSubjects.length > 0 && (
                             <section>
                                 <h2 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)] mb-[var(--space-4)] flex items-center gap-2">
-                                    <div className="w-2 h-6 bg-[var(--accent-blue)] rounded-full"></div>
+                                    <div className="w-2 h-6 bg-[var(--accent-orange)] rounded-full"></div>
                                     Active Semester
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-5)]">

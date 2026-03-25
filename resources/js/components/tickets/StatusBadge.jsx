@@ -30,7 +30,7 @@ export function StatusBadge({ status, className }) {
     return (
         <span
             className={cn(
-                'inline-flex items-center px-2 py-0.5 whitespace-nowrap text-[var(--text-tiny)] font-medium rounded-[var(--radius-sm)]',
+                'inline-flex items-center px-2 py-0.5 whitespace-nowrap text-[10px] font-bold tracking-wider rounded-[var(--radius-sm)] uppercase',
                 config.className,
                 className
             )}

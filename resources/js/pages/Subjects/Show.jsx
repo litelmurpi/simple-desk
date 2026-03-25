@@ -55,7 +55,7 @@ export default function Show({ subject, tickets }) {
                     
                     <div className="h-3 w-full bg-[var(--bg-subtle)] rounded-full overflow-hidden mb-2">
                         <div 
-                            className={cn("h-full transition-all duration-500", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-blue)]")} 
+                            className={cn("h-full transition-all duration-500", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-orange)]")} 
                             style={{ width: `${subject.progress}%` }} 
                         />
                     </div>
@@ -71,7 +71,7 @@ export default function Show({ subject, tickets }) {
                         Tickets
                     </h2>
                     <Link href={route('tickets.create', { subject_id: subject.id })}>
-                        <Button className="bg-[var(--accent-blue)] text-white hover:opacity-90 h-8 text-[var(--text-caption)]">
+                        <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 h-8 text-[var(--text-caption)]">
                             <Plus className="w-3.5 h-3.5 mr-1.5" /> New Ticket
                         </Button>
                     </Link>

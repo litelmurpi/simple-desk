@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 export function Toaster() {
     const { flash, errors } = usePage().props;
     const [visible, setVisible] = useState(false);
+    const [isExiting, setIsExiting] = useState(false);
     const [message, setMessage] = useState(null);
     const [type, setType] = useState('info'); // info, success, error, warning
 
@@ -20,7 +21,6 @@ export function Toaster() {
             msg = flash.error;
             t = 'error';
         } else if (errors && Object.keys(errors).length > 0) {
-            // Pick the first error if multiple exist
             const firstError = Object.values(errors)[0];
             msg = typeof firstError === 'string' ? firstError : JSON.stringify(firstError);
             t = 'error';
@@ -30,48 +30,49 @@ export function Toaster() {
             setMessage(msg);
             setType(t);
             setVisible(true);
+            setIsExiting(false);
 
             const timer = setTimeout(() => {
-                setVisible(false);
+                closeToast();
             }, 5000);
 
             return () => clearTimeout(timer);
         }
     }, [flash, errors]);
 
+    const closeToast = () => {
+        setIsExiting(true);
+        setTimeout(() => {
+            setVisible(false);
+        }, 300); // Matches duration-300
+    };
+
     if (!visible || !message) return null;
 
     const icons = {
-        success: <CheckCircle className="w-5 h-5 text-[var(--accent-green)]" />,
-        error: <AlertCircle className="w-5 h-5 text-[var(--accent-red)]" />,
-        warning: <AlertTriangle className="w-5 h-5 text-[var(--accent-yellow)]" />,
-        info: <Info className="w-5 h-5 text-[var(--accent-blue)]" />,
-    };
-
-    const backgrounds = {
-        success: 'bg-[var(--accent-green-soft)] border-[var(--accent-green)]',
-        error: 'bg-[var(--accent-red-soft)] border-[var(--accent-red)]',
-        warning: 'bg-[var(--accent-yellow-soft)] border-[var(--accent-yellow)]',
-        info: 'bg-[var(--accent-blue-soft)] border-[var(--accent-blue)]',
+        success: <CheckCircle className="w-4 h-4 text-[var(--accent-green)]" />,
+        error: <AlertCircle className="w-4 h-4 text-[var(--accent-red)]" />,
+        warning: <AlertTriangle className="w-4 h-4 text-[var(--accent-yellow)]" />,
+        info: <Info className="w-4 h-4 text-[var(--accent-orange)]" />,
     };
 
     return (
-        <div className="fixed top-6 right-6 z-[100] animate-in fade-in slide-in-from-right-5">
-            <div className={cn(
-                "flex items-center gap-3 p-4 pr-12 rounded-[var(--radius-lg)] border shadow-[var(--shadow-lg)] min-w-[300px] max-w-md relative bg-[var(--bg-overlay)]",
-                backgrounds[type]
-            )}>
-                <div className="flex-shrink-0">
+        <div className={cn(
+            "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] transition-all duration-300 ease-out",
+            isExiting ? "opacity-0 translate-y-4 scale-95" : "animate-in slide-in-from-bottom-6 fade-in duration-300 zoom-in-95"
+        )}>
+            <div className="flex items-start gap-3 p-3.5 pr-12 rounded-[var(--radius-lg)] border border-[var(--border-strong)] shadow-2xl min-w-[300px] max-w-sm relative bg-[#1A1A1F]/90 backdrop-blur-xl">
+                <div className="flex-shrink-0 mt-0.5">
                     {icons[type]}
                 </div>
-                <div className="flex-1">
-                    <p className="text-[var(--text-body)] font-medium text-[var(--text-primary)]">
+                <div className="flex-1 min-w-0">
+                    <p className="text-[13px] leading-tight font-medium text-[var(--text-primary)] break-words">
                         {message}
                     </p>
                 </div>
                 <button 
-                    onClick={() => setVisible(false)}
-                    className="absolute top-2 right-2 p-1 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
+                    onClick={closeToast}
+                    className="absolute top-3 right-3 p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-[var(--radius-sm)] transition-colors"
                 >
                     <X className="w-4 h-4" />
                 </button>

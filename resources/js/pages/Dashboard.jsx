@@ -25,7 +25,7 @@ export default function Dashboard({ stats, deadlines, subjectProgress, chartData
                     
                     <div className="flex items-center gap-3">
                         <Link href={route('tickets.create')}>
-                            <Button className="bg-[var(--accent-blue)] text-white hover:bg-blue-600 shadow-sm">
+                            <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 shadow-sm">
                                 <Plus className="w-4 h-4 mr-2" /> New Ticket
                             </Button>
                         </Link>

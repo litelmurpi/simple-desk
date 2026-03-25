@@ -37,7 +37,7 @@ export default function SettingsLayout({ children, title }) {
                                         className={cn(
                                             "flex items-center gap-3 px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-lg)] text-[var(--text-label)] font-medium transition-colors whitespace-nowrap",
                                             item.active 
-                                                ? "bg-[var(--accent-blue-soft)] text-[var(--accent-blue)]" 
+                                                ? "bg-[var(--accent-orange-soft)] text-[var(--accent-orange)]" 
                                                 : "text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
                                         )}
                                     >

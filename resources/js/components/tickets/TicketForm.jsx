@@ -55,7 +55,7 @@ export function TicketForm({ ticket = null, subjects = [], tags = [], className 
                     value={data.title} 
                     onChange={e => setData('title', e.target.value)} 
                     placeholder="E.g. Fix login bug or Finish assignment"
-                    className="bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-blue)]"
+                    className="bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-orange)]"
                 />
                 {errors.title && <p className="text-[var(--text-caption)] text-[var(--accent-red)]">{errors.title}</p>}
             </div>
@@ -134,7 +134,7 @@ export function TicketForm({ ticket = null, subjects = [], tags = [], className 
                         type="date"
                         value={data.deadline_at}
                         onChange={e => setData('deadline_at', e.target.value)}
-                        className="bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-blue)] [color-scheme:dark]"
+                        className="bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-orange)] [color-scheme:dark]"
                     />
                      {errors.deadline_at && <p className="text-[var(--text-caption)] text-[var(--accent-red)]">{errors.deadline_at}</p>}
                 </div>
@@ -149,7 +149,7 @@ export function TicketForm({ ticket = null, subjects = [], tags = [], className 
                                 id={`tag-${tag.id}`} 
                                 checked={data.tags.includes(tag.id)} 
                                 onCheckedChange={() => toggleTag(tag.id)} 
-                                className="border-[var(--border-strong)] data-[state=checked]:bg-[var(--accent-blue)] data-[state=checked]:border-[var(--accent-blue)]"
+                                className="border-[var(--border-strong)] data-[state=checked]:bg-[var(--accent-orange)] data-[state=checked]:border-[var(--accent-orange)]"
                             />
                             <label
                                 htmlFor={`tag-${tag.id}`}
@@ -171,7 +171,7 @@ export function TicketForm({ ticket = null, subjects = [], tags = [], className 
                     value={data.description} 
                     onChange={e => setData('description', e.target.value)} 
                     placeholder="Write details, acceptance criteria, or context here..."
-                    className="min-h-[150px] bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-blue)]"
+                    className="min-h-[150px] bg-[var(--bg-surface)] border-[var(--border-default)] focus-visible:ring-[var(--accent-orange)]"
                 />
             </div>
 
@@ -187,7 +187,7 @@ export function TicketForm({ ticket = null, subjects = [], tags = [], className 
                 <Button 
                     type="submit" 
                     disabled={processing}
-                    className="bg-[var(--accent-blue)] text-white hover:opacity-90 transition-opacity"
+                    className="bg-[var(--accent-orange)] text-white hover:opacity-90 transition-opacity"
                 >
                     {isEdit ? 'Save Changes' : 'Create Ticket'}
                 </Button>

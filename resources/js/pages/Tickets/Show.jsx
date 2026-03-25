@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import AppLayout from '@/components/layout/AppLayout';
 import { StatusBadge } from '@/components/tickets/StatusBadge';
@@ -11,8 +11,10 @@ import NoteEditor from '@/components/tickets/NoteEditor';
 import NoteList from '@/components/tickets/NoteList';
 import AttachmentUploader from '@/components/tickets/AttachmentUploader';
 import AttachmentList from '@/components/tickets/AttachmentList';
+import DeleteTicketModal from '@/components/tickets/DeleteTicketModal';
 
 export default function Show({ ticket }) {
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const isClosed = ticket.status === 'done' || ticket.status === 'archived';
 
     const handleDuplicate = () => {
@@ -20,9 +22,7 @@ export default function Show({ ticket }) {
     };
 
     const handleDelete = () => {
-        if (confirm('Move this ticket to trash?')) {
-            router.delete(route('tickets.destroy', ticket.id));
-        }
+        setIsDeleteModalOpen(true);
     };
 
     const formatDate = (dateString, withTime = false) => {
@@ -37,6 +37,12 @@ export default function Show({ ticket }) {
     return (
         <AppLayout title={`${ticket.ticket_number} - ${ticket.title}`}>
             <Head title={ticket.ticket_number} />
+
+            <DeleteTicketModal 
+                isOpen={isDeleteModalOpen} 
+                onClose={() => setIsDeleteModalOpen(false)} 
+                ticket={ticket} 
+            />
 
             <div className="max-w-4xl mx-auto space-y-[var(--space-6)]">
                 {/* Header Section */}
@@ -79,7 +85,7 @@ export default function Show({ ticket }) {
                             <Copy className="w-4 h-4" />
                         </Button>
                         <Link href={route('tickets.edit', ticket.id)}>
-                            <Button variant="ghost" size="sm" className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] hover:bg-[var(--accent-blue-soft)]">
+                            <Button variant="ghost" size="sm" className="text-[var(--text-secondary)] hover:text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)]">
                                 <Pencil className="w-4 h-4 mr-2" /> Edit
                             </Button>
                         </Link>
@@ -106,11 +112,11 @@ export default function Show({ ticket }) {
                         <div className="bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-[var(--radius-lg)] p-[var(--space-2)] sm:p-[var(--space-5)]">
                             <Tabs defaultValue="notes" className="w-full">
                                 <TabsList className="bg-[var(--bg-surface)] w-full justify-start overflow-x-auto border-b border-[var(--border-default)] rounded-none px-0 h-auto pb-0">
-                                    <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
+                                    <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
                                         <MessageSquare className="w-4 h-4 mr-2" />
                                         Notes
                                     </TabsTrigger>
-                                    <TabsTrigger value="attachments" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
+                                    <TabsTrigger value="attachments" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
                                         <Paperclip className="w-4 h-4 mr-2" />
                                         Attachments
                                         {ticket.attachments?.length > 0 && (
@@ -119,7 +125,7 @@ export default function Show({ ticket }) {
                                             </span>
                                         )}
                                     </TabsTrigger>
-                                    <TabsTrigger value="history" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
+                                    <TabsTrigger value="history" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] rounded-none px-4 py-2 text-[var(--text-secondary)]">
                                         <History className="w-4 h-4 mr-2" />
                                         History
                                     </TabsTrigger>

@@ -4,7 +4,7 @@ import AppLayout from '@/components/layout/AppLayout';
 import {
     DndContext,
     DragOverlay,
-    closestCorners,
+    closestCenter,
     KeyboardSensor,
     PointerSensor,
     useSensor,
@@ -38,7 +38,7 @@ export default function Board({ tickets: initialTickets, subjects }) {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 5, // 5px drag before activation, helps with clicking vs dragging
+                distance: 8, // Require 8px move before activating drag — prevents accidental drags on click
             },
         }),
         useSensor(KeyboardSensor, {
@@ -127,23 +127,23 @@ export default function Board({ tickets: initialTickets, subjects }) {
         <AppLayout title="Board">
             <Head title="Board" />
 
-            <div className="max-w-full h-[calc(100vh-140px)] flex flex-col pt-4 anim-fade-in-up">
-                <div className="mb-[var(--space-6)] px-[var(--space-6)] shrink-0">
-                    <h1 className="page-title">Kanban Board</h1>
-                    <p className="page-subtitle">
+            <div className="max-w-full h-[calc(100vh-80px)] flex flex-col pt-8">
+                <div className="mb-6 px-10 shrink-0 flex flex-col gap-1">
+                    <h1 className="text-3xl font-bold tracking-tight text-(--text-primary)">Kanban Board</h1>
+                    <p className="text-sm text-(--text-tertiary)">
                         Drag and drop tickets to update their status.
                     </p>
                 </div>
 
-                <div className="flex-1 overflow-x-auto pb-6 px-[var(--space-6)] hide-scrollbar">
+                <div className="flex-1 overflow-x-auto pb-6 px-10 custom-scrollbar">
                     <DndContext
                         sensors={sensors}
-                        collisionDetection={closestCorners}
+                        collisionDetection={closestCenter}
                         onDragStart={handleDragStart}
                         onDragOver={handleDragOver}
                         onDragEnd={handleDragEnd}
                     >
-                        <div className="flex w-fit gap-[var(--space-4)] h-full items-start stagger-children">
+                        <div className="flex w-fit gap-6 h-full items-start">
                             {COLUMNS.map(col => (
                                 <KanbanColumn 
                                     key={col.id}
@@ -155,11 +155,24 @@ export default function Board({ tickets: initialTickets, subjects }) {
                             ))}
                         </div>
 
-                        {/* Portal for rendering the item being dragged */}
-                        <DragOverlay>
+                        {/* Portal for rendering the item being dragged — smooth, lifted feel */}
+                        <DragOverlay
+                            dropAnimation={{
+                                duration: 250,
+                                easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+                            }}
+                        >
                             {activeTicket ? (
-                                <div className="w-[290px] rotate-3 cursor-grabbing shadow-2xl opacity-80">
-                                    <KanbanCard ticket={activeTicket} onClick={() => {}} />
+                                <div
+                                    className="w-[320px] cursor-grabbing"
+                                    style={{
+                                        transform: 'rotate(3deg) scale(1.05)',
+                                        boxShadow: '0 24px 48px -12px rgba(0,0,0,0.5), 0 0 0 1px var(--border-strong)',
+                                        borderRadius: 'var(--radius-lg)',
+                                        opacity: 0.95,
+                                    }}
+                                >
+                                    <KanbanCard ticket={activeTicket} onClick={() => {}} isDragOverlay />
                                 </div>
                             ) : null}
                         </DragOverlay>

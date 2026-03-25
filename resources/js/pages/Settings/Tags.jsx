@@ -61,7 +61,7 @@ export default function Tags({ tags }) {
                 {editingId === null && (
                     <form onSubmit={handleCreate} className="mb-6 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[var(--radius-lg)] p-4">
                         <h4 className="text-[var(--text-label)] font-medium text-[var(--text-primary)] mb-3 flex items-center gap-2">
-                            <Plus className="w-4 h-4 text-[var(--accent-blue)]" /> New Tag
+                            <Plus className="w-4 h-4 text-[var(--accent-orange)]" /> New Tag
                         </h4>
                         <div className="flex items-start gap-4">
                             <div className="flex-1">
@@ -70,7 +70,7 @@ export default function Tags({ tags }) {
                                     type="text"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
-                                    className="w-full bg-[var(--bg-base)] border border-[var(--border-default)] focus:border-[var(--accent-blue)] rounded-[var(--radius-md)] px-3 py-1.5 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
+                                    className="w-full bg-[var(--bg-base)] border border-[var(--border-default)] focus:border-[var(--accent-orange)] rounded-[var(--radius-md)] px-3 py-1.5 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
                                     placeholder="e.g., #urgent-bug"
                                 />
                                 {errors.name && <p className="text-[var(--text-tiny)] text-[var(--accent-red)] mt-1">{errors.name}</p>}
@@ -84,7 +84,7 @@ export default function Tags({ tags }) {
                                         onChange={(e) => setData('color', e.target.value)}
                                         className="w-8 h-8 rounded cursor-pointer border-0 p-0 bg-transparent"
                                     />
-                                    <Button type="submit" disabled={processing} className="bg-[var(--accent-blue)] hover:bg-blue-600 text-white shadow-sm border-0 ml-2">
+                                    <Button type="submit" disabled={processing} className="bg-[var(--accent-orange)] hover:opacity-90 text-white shadow-sm border-0 ml-2">
                                         Save
                                     </Button>
                                 </div>
@@ -110,7 +110,7 @@ export default function Tags({ tags }) {
                                                 type="text"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-blue)] rounded-[var(--radius-md)] px-3 py-1 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
+                                                className="w-full bg-[var(--bg-surface)] border border-[var(--border-default)] focus:border-[var(--accent-orange)] rounded-[var(--radius-md)] px-3 py-1 text-[var(--text-body)] text-[var(--text-primary)] outline-none"
                                                 autoFocus
                                             />
                                             {errors.name && <p className="text-[var(--text-tiny)] text-[var(--accent-red)] mt-1">{errors.name}</p>}
@@ -123,7 +123,7 @@ export default function Tags({ tags }) {
                                                 className="w-7 h-7 rounded cursor-pointer border-0 p-0 bg-transparent"
                                             />
                                             <Button type="button" variant="ghost" onClick={cancelEdit} className="text-[var(--text-secondary)]">Cancel</Button>
-                                            <Button type="submit" disabled={processing} className="bg-[var(--accent-blue)] text-white hover:bg-blue-600">Save</Button>
+                                            <Button type="submit" disabled={processing} className="bg-[var(--accent-orange)] text-white hover:opacity-90">Save</Button>
                                         </div>
                                     </form>
                                 ) : (
@@ -140,7 +140,7 @@ export default function Tags({ tags }) {
                                             <button 
                                                 type="button" 
                                                 onClick={() => startEdit(tag)}
-                                                className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-blue)] hover:bg-[var(--accent-blue-soft)] rounded-[var(--radius-md)] transition-colors"
+                                                className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)] rounded-[var(--radius-md)] transition-colors"
                                             >
                                                 <Pencil className="w-4 h-4" />
                                             </button>

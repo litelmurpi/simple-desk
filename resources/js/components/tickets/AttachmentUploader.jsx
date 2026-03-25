@@ -67,7 +67,7 @@ export default function AttachmentUploader({ ticketId, noteId = null }) {
         <div className="w-full">
             <div 
                 className={`border-2 border-dashed rounded-[var(--radius-lg)] p-6 transition-colors text-center ${
-                    dragActive ? 'border-[var(--accent-blue)] bg-[var(--accent-blue-soft)]' : 
+                    dragActive ? 'border-[var(--accent-orange)] bg-[var(--accent-orange-soft)]' : 
                     data.file ? 'border-[var(--border-strong)] bg-[var(--bg-raised)]' :
                     'border-[var(--border-default)] bg-[var(--bg-base)] hover:border-[var(--border-strong)]'
                 }`}
@@ -88,7 +88,7 @@ export default function AttachmentUploader({ ticketId, noteId = null }) {
                 {data.file ? (
                     <div className="flex flex-col items-center gap-3">
                         <div className="flex items-center gap-2 p-3 bg-[var(--bg-surface)] rounded-[var(--radius-md)] border border-[var(--border-default)]">
-                            <File className="w-5 h-5 text-[var(--accent-blue)]" />
+                            <File className="w-5 h-5 text-[var(--accent-orange)]" />
                             <div className="text-left">
                                 <p className="text-[var(--text-body)] text-[var(--text-primary)] font-medium max-w-[200px] truncate">
                                     {data.file.name}
@@ -109,7 +109,7 @@ export default function AttachmentUploader({ ticketId, noteId = null }) {
                             type="button"
                             onClick={(e) => { e.stopPropagation(); handleUpload(); }}
                             disabled={processing}
-                            className="bg-[var(--accent-blue)] text-white text-sm font-medium py-1.5 px-4 rounded-[var(--radius-md)] flex items-center gap-2 hover:bg-blue-600 transition-colors disabled:opacity-70"
+                            className="bg-[var(--accent-orange)] text-white text-sm font-medium py-1.5 px-4 rounded-[var(--radius-md)] flex items-center gap-2 hover:opacity-90 transition-colors disabled:opacity-70"
                         >
                             {processing ? <Loader2 className="w-4 h-4 animate-spin" /> : <UploadCloud className="w-4 h-4" />}
                             {processing ? 'Uploading...' : 'Upload File'}
@@ -121,7 +121,7 @@ export default function AttachmentUploader({ ticketId, noteId = null }) {
                             <UploadCloud className="w-6 h-6" />
                         </div>
                         <p className="text-[var(--text-body)] text-[var(--text-primary)]">
-                            <span className="text-[var(--accent-blue)] font-medium">Click to upload</span> or drag and drop
+                            <span className="text-[var(--accent-orange)] font-medium">Click to upload</span> or drag and drop
                         </p>
                         <p className="text-[var(--text-caption)] text-[var(--text-tertiary)]">
                             PDF, Images, Word, Excel, or ZIP (Max 10MB)
