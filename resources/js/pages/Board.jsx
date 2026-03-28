@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, Link } from '@inertiajs/react';
 import AppLayout from '@/components/layout/AppLayout';
+import { Plus } from 'lucide-react';
 import {
     DndContext,
     DragOverlay,
@@ -13,6 +14,8 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import KanbanColumn from '@/components/tickets/KanbanColumn';
 import KanbanCard from '@/components/tickets/KanbanCard';
+import { QuickAddRow } from '@/components/tickets/QuickAddRow';
+import { Button } from '@/components/ui/button';
 
 const COLUMNS = [
     { id: 'open', title: 'Open' },
@@ -24,6 +27,21 @@ const COLUMNS = [
 export default function Board({ tickets: initialTickets, subjects }) {
     const [tickets, setTickets] = useState(initialTickets);
     const [activeId, setActiveId] = useState(null);
+    const [isQuickAddVisible, setIsQuickAddVisible] = useState(false);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea') return;
+            
+            if (e.key === 'n' || e.key === 'N') {
+                e.preventDefault();
+                setIsQuickAddVisible(true);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     // Update local state if props change (e.g. after a full page nav or broadcast)
     useEffect(() => {
@@ -128,14 +146,34 @@ export default function Board({ tickets: initialTickets, subjects }) {
             <Head title="Board" />
 
             <div className="max-w-full h-[calc(100vh-80px)] flex flex-col pt-8">
-                <div className="mb-6 px-10 shrink-0 flex flex-col gap-1">
-                    <h1 className="text-3xl font-bold tracking-tight text-(--text-primary)">Kanban Board</h1>
-                    <p className="text-sm text-(--text-tertiary)">
-                        Drag and drop tickets to update their status.
-                    </p>
+                <div className="mb-[var(--space-6)] px-[var(--space-6)] lg:px-[var(--space-8)] shrink-0 flex flex-col sm:flex-row sm:items-end justify-between gap-[var(--space-4)]">
+                    <div>
+                        <h1 className="page-title">Board</h1>
+                        <p className="page-subtitle">
+                            Manage project workflow and tracking.
+                        </p>
+                    </div>
+                    <div className="flex gap-[var(--space-3)]">
+                        <Button 
+                            onClick={() => setIsQuickAddVisible(!isQuickAddVisible)}
+                            className="bg-[var(--accent-orange)] text-[var(--text-inverse)] hover:bg-[oklch(from_var(--accent-orange)_calc(l_-_0.1)_c_h)] transition-colors shadow-sm font-medium"
+                        >
+                            Quick Add (N)
+                        </Button>
+                        <Link href={route('tickets.create')} className="inline-flex items-center justify-center whitespace-nowrap text-[var(--text-label)] font-medium ring-offset-[var(--bg-base)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-default)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[var(--border-default)] hover:bg-[var(--bg-surface)] text-[var(--text-primary)] h-10 px-4 py-2 rounded-[var(--radius-md)] shadow-sm">
+                            <Plus className="w-4 h-4 mr-2" /> Full Form
+                        </Link>
+                    </div>
                 </div>
 
-                <div className="flex-1 overflow-x-auto pb-6 px-10 custom-scrollbar">
+                <div className="px-[var(--space-6)] lg:px-[var(--space-8)] mb-[var(--space-6)]">
+                    <QuickAddRow
+                        isVisible={isQuickAddVisible}
+                        onClose={() => setIsQuickAddVisible(false)}
+                    />
+                </div>
+
+                <div className="flex-1 overflow-x-auto pb-6 px-[var(--space-6)] lg:px-[var(--space-8)] custom-scrollbar">
                     <DndContext
                         sensors={sensors}
                         collisionDetection={closestCenter}

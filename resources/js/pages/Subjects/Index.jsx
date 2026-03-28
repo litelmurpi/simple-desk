@@ -68,16 +68,16 @@ export default function Index({ subjects }) {
 
             <div className="flex flex-col space-y-[var(--space-6)]">
                 {/* Header Actions */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[var(--space-4)]">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-[var(--space-4)]">
                     <div>
-                        <h1 className="text-[var(--text-display)] text-[var(--text-primary)] tracking-tight">Mata Kuliah</h1>
-                        <p className="text-[var(--text-body)] text-[var(--text-secondary)]">Track your task completion progress grouped by subjects.</p>
+                        <h1 className="page-title">Subjects</h1>
+                        <p className="page-subtitle">Track your task completion progress grouped by subjects.</p>
                     </div>
                     <div className="flex items-center gap-[var(--space-2)]">
                         <Button 
                             variant="outline"
                             onClick={() => router.get(route('settings.subjects.index'))}
-                            className="bg-[var(--bg-raised)] border-[var(--border-strong)] text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]"
+                            className="bg-[var(--bg-base)] border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-all shadow-sm"
                         >
                             Manage Subjects
                         </Button>

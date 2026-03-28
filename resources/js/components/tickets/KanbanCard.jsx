@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { PriorityIndicator } from './PriorityIndicator';
-import { MessageSquare, Paperclip, Clock } from 'lucide-react';
+import { MessageSquare, Paperclip, Clock, Pin } from 'lucide-react';
 import dayjs from 'dayjs';
 
 export default function KanbanCard({ ticket, onClick, isDragOverlay = false }) {
@@ -34,8 +34,8 @@ export default function KanbanCard({ ticket, onClick, isDragOverlay = false }) {
 
     // Overlay variant: a bit brighter border so it "floats" visually above the board
     const cardClasses = isDragOverlay
-        ? 'relative bg-(--bg-raised) border border-(--border-strong) rounded-lg p-3.5 cursor-grabbing shadow-lg ring-1 ring-(--border-strong)'
-        : 'group relative bg-(--bg-raised) border border-(--border-default) hover:border-(--border-strong) rounded-lg p-3.5 cursor-grab active:cursor-grabbing shadow-sm hover:shadow-md transition-all duration-300';
+        ? 'relative bg-[var(--bg-raised)] border border-[var(--border-strong)] rounded-[var(--radius-lg)] p-3.5 cursor-grabbing shadow-[var(--shadow-lg)] ring-1 ring-[var(--border-strong)] z-50'
+        : 'group relative bg-[var(--bg-raised)] border border-[var(--border-default)] hover:border-[var(--border-strong)] rounded-[var(--radius-lg)] p-3.5 cursor-grab active:cursor-grabbing shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-300';
 
     return (
         <div
@@ -47,49 +47,58 @@ export default function KanbanCard({ ticket, onClick, isDragOverlay = false }) {
             className={cardClasses}
         >
             {/* Priority left accent bar */}
-            {ticket.priority === 'urgent' && (
-                <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-md bg-destructive transition-all duration-300 group-hover:w-[4px]" />
-            )}
-            {ticket.priority === 'high' && (
-                <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-md bg-(--accent-orange) transition-all duration-300 group-hover:w-[4px]" />
+            {ticket.priority && (
+                <div className={`absolute left-0 top-3 bottom-3 rounded-r-md transition-all duration-300 group-hover:w-[4px] ${
+                    ticket.priority === 'urgent' ? 'bg-[var(--accent-red)] w-[3px]' : 
+                    ticket.priority === 'high' ? 'bg-[var(--accent-orange)] w-[3px]' :
+                    ticket.priority === 'medium' ? 'bg-[var(--accent-yellow)] w-0 group-hover:w-[3px]' :
+                    'bg-[var(--border-strong)] w-0 group-hover:w-[3px]'
+                }`} />
             )}
 
             <div className="flex justify-between items-start mb-2.5">
-                <span className="text-[11px] font-mono text-(--text-tertiary) bg-(--bg-subtle) px-1.5 py-0.5 rounded-sm">
-                    {ticket.ticket_number}
-                </span>
+                <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-mono text-[var(--text-tertiary)] bg-[var(--bg-subtle)] px-1.5 py-0.5 rounded-sm">
+                        {ticket.ticket_number}
+                    </span>
+                    {ticket.is_pinned && (
+                        <div className="text-[var(--accent-orange)]" title="Pinned">
+                            <Pin className="w-3.5 h-3.5 fill-current" />
+                        </div>
+                    )}
+                </div>
                 <PriorityIndicator priority={ticket.priority} />
             </div>
             
-            <h4 className="text-sm text-(--text-primary) font-medium mb-3 leading-snug line-clamp-2 group-hover:text-(--accent-orange) transition-colors">
+            <h4 className="text-sm text[var(--text-primary)] font-medium mb-3 leading-snug line-clamp-2 group-hover:text[var(--accent-orange)] transition-colors">
                 {ticket.title}
             </h4>
 
             {ticket.subject && (
                 <div className="flex items-center gap-2 mb-3">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ticket.subject.color }}></span>
-                    <span className="text-[11px] text-(--text-secondary) font-medium truncate">
+                    <span className="text-[11px] text[var(--text-secondary)] font-medium truncate">
                         {ticket.subject.code || ticket.subject.name}
                     </span>
                 </div>
             )}
 
-            <div className="flex items-center justify-between text-[11px] text-(--text-tertiary) pt-3 border-t border-(--border-subtle) mt-2">
+            <div className="flex items-center justify-between text-[11px] text[var(--text-tertiary)] pt-3 border-t border[var(--border-subtle)] mt-2">
                 <div className="flex items-center gap-3">
                     {ticket.notes_count > 0 && (
-                        <div className="flex items-center gap-1.5 text-(--text-secondary)">
+                        <div className="flex items-center gap-1.5 text[var(--text-secondary)]">
                             <MessageSquare className="w-3.5 h-3.5" /> <span className="font-mono">{ticket.notes_count}</span>
                         </div>
                     )}
                     {ticket.attachments_count > 0 && (
-                        <div className="flex items-center gap-1.5 text-(--text-secondary)">
+                        <div className="flex items-center gap-1.5 text[var(--text-secondary)]">
                             <Paperclip className="w-3.5 h-3.5" /> <span className="font-mono">{ticket.attachments_count}</span>
                         </div>
                     )}
                 </div>
 
                 {ticket.deadline_at && (
-                    <div className={`flex items-center gap-1.5 ${isOverdue ? 'text-destructive font-medium bg-destructive/10 px-1.5 py-0.5 rounded-sm' : ''}`}>
+                    <div className={`flex items-center gap-1.5 ${isOverdue ? 'text-[var(--accent-red)] font-medium bg-[var(--accent-red-soft)] px-1.5 py-0.5 rounded-[var(--radius-sm)]' : ''}`}>
                         <Clock className="w-3.5 h-3.5" />
                         {dayjs(ticket.deadline_at).format('MMM D')}
                     </div>

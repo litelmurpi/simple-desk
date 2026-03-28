@@ -13,6 +13,9 @@ Route::get('/', function () {
     // Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+    // Global Search
+    Route::get('/api/search', [\App\Http\Controllers\SearchController::class, 'search'])->name('search');
+
     // Tickets Core CRUD
     Route::resource('tickets', \App\Http\Controllers\TicketController::class);
     
@@ -21,6 +24,8 @@ Route::get('/', function () {
     Route::patch('/tickets/{ticket}/status', [\App\Http\Controllers\TicketActionController::class, 'updateStatus'])->name('tickets.status.update');
     Route::patch('/tickets/{ticket}/priority', [\App\Http\Controllers\TicketActionController::class, 'updatePriority'])->name('tickets.priority.update');
     Route::patch('/tickets/{ticket}/archive', [\App\Http\Controllers\TicketActionController::class, 'archive'])->name('tickets.archive');
+    Route::post('/tickets/{ticket}/log-time', [\App\Http\Controllers\TicketActionController::class, 'logTime'])->name('tickets.log-time');
+    Route::patch('/tickets/{ticket}/pin', [\App\Http\Controllers\TicketActionController::class, 'togglePin'])->name('tickets.pin');
     Route::post('/tickets/{id}/restore', [\App\Http\Controllers\TicketActionController::class, 'restore'])->name('tickets.restore');
     Route::patch('/tickets-bulk', [\App\Http\Controllers\TicketActionController::class, 'bulkUpdate'])->name('tickets.bulk.update');
     Route::delete('/tickets-bulk', [\App\Http\Controllers\TicketActionController::class, 'bulkDelete'])->name('tickets.bulk.delete');

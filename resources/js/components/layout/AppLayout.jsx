@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import useDeadlineNotifications from '@/hooks/useDeadlineNotifications';
 import { Toaster } from '@/components/ui/Toaster';
+import { CommandPalette } from '@/components/ui/CommandPalette';
 
 export default function AppLayout({ children, headerTitle }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -38,6 +39,7 @@ export default function AppLayout({ children, headerTitle }) {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         <Toaster />
+        <CommandPalette />
         <Header 
           title={headerTitle || 'SimpleDesk'} 
           onMenuClick={() => setIsSidebarOpen(true)} 

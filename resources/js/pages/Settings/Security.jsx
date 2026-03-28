@@ -45,10 +45,10 @@ export default function Security({ isAppLockEnabled }) {
 
     return (
         <SettingsLayout title="Security">
-            <div className="p-[var(--space-6)] border-b border-[var(--border-default)] flex justify-between items-center bg-[var(--bg-surface)]">
+            <div className="p-[var(--space-6)] pb-0">
                 <div>
                     <h2 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)]">Security Settings</h2>
-                    <p className="text-[var(--text-caption)] text-[var(--text-tertiary)] mt-1">
+                    <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">
                         Manage application access and security preferences.
                     </p>
                 </div>

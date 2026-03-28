@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Head, useForm, router } from '@inertiajs/react';
-import AppLayout from '@/components/layout/AppLayout';
+import SettingsLayout from '@/components/layout/SettingsLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -77,23 +77,21 @@ export default function Subjects({ subjects }) {
     ];
 
     return (
-        <AppLayout title="Subject Settings">
-            <Head title="Subject Settings" />
-
-            <div className="max-w-4xl mx-auto py-[var(--space-6)]">
-                <div className="flex justify-between items-center mb-[var(--space-8)] border-b border-[var(--border-default)] pb-[var(--space-4)]">
+        <SettingsLayout title="Subjects">
+            <div className="anim-fade-in p-[var(--space-6)]">
+                <div className="flex justify-between items-center mb-[var(--space-6)]">
                     <div>
-                        <h1 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)]">Manage Subjects</h1>
+                        <h2 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)]">Manage Subjects</h2>
                         <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">Add, edit, or archive your courses and projects.</p>
                     </div>
-                    <Button onClick={handleArchiveAll} variant="outline" className="border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)]">
+                    <Button onClick={handleArchiveAll} variant="outline" className="bg-[var(--bg-base)] border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)] transition-colors shadow-sm">
                         <Archive className="w-4 h-4 mr-2" /> Start New Semester
                     </Button>
                 </div>
 
                 {/* Add New Subject */}
                 {!isAdding ? (
-                    <Button onClick={() => setIsAdding(true)} className="mb-[var(--space-6)] bg-[var(--accent-orange)] text-white">
+                    <Button onClick={() => setIsAdding(true)} className="mb-[var(--space-6)] bg-[var(--accent-orange)] text-white shadow-sm">
                         <Plus className="w-4 h-4 mr-2" /> Add Subject
                     </Button>
                 ) : (
@@ -234,6 +232,6 @@ export default function Subjects({ subjects }) {
                     )}
                 </div>
             </div>
-        </AppLayout>
+        </SettingsLayout>
     );
 }

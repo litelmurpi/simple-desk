@@ -21,13 +21,19 @@ class Ticket extends Model
         'deadline_at',
         'completed_at',
         'is_archived',
+        'is_pinned',
+        'pinned_at',
         'ticket_number',
+        'time_spent_minutes',
     ];
 
     protected $casts = [
         'deadline_at' => 'datetime',
         'completed_at' => 'datetime',
         'is_archived' => 'boolean',
+        'is_pinned' => 'boolean',
+        'pinned_at' => 'datetime',
+        'time_spent_minutes' => 'integer',
     ];
 
     protected static function booted()
@@ -81,5 +87,10 @@ class Ticket extends Model
     {
         return $query->where('status', '!=', 'done')
                      ->whereBetween('deadline_at', [now()->startOfWeek(), now()->endOfWeek()]);
+    }
+    
+    public function scopePinned($query)
+    {
+        return $query->where('is_pinned', true);
     }
 }

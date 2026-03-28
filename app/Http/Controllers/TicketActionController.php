@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class TicketActionController extends Controller
 {
@@ -122,5 +123,29 @@ class TicketActionController extends Controller
         Ticket::whereIn('id', $request->ticket_ids)->delete();
 
         return back()->with('success', count($request->ticket_ids) . ' tickets deleted.');
+    }
+
+    /**
+     * Toggle pinned status.
+     */
+    public function togglePin(Ticket $ticket): RedirectResponse
+    {
+        $ticket->update([
+            'is_pinned' => !$ticket->is_pinned,
+            'pinned_at' => !$ticket->is_pinned ? now() : null,
+        ]);
+
+        return back()->with('success', 'Ticket pin status updated.');
+    }
+
+    public function logTime(Request $request, Ticket $ticket): RedirectResponse
+    {
+        $validated = $request->validate([
+            'minutes' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $ticket->increment('time_spent_minutes', $validated['minutes']);
+
+        return back()->with('success', 'Time logged successfully.');
     }
 }

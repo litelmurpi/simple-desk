@@ -60,10 +60,18 @@ export default function Archive({ tickets }) {
                                             </div>
                                         </td>
                                     </tr>
-                                ) : tickets.data.map(ticket => (
-                                    <tr key={ticket.id} className="hover:bg-[var(--bg-subtle)] transition-colors group">
+                                ) : tickets.data.map((ticket, index) => (
+                                    <tr key={ticket.id} className="hover:bg-[var(--bg-subtle)] transition-all duration-200 group relative anim-fade-in-up" style={{ animationDelay: `${index * 30}ms` }}>
                                         <td className="px-5 py-3.5">
-                                            <div className="flex items-center gap-3">
+                                            {ticket.priority && (
+                                                <div className={`absolute left-0 top-0 bottom-0 w-0 transition-all duration-300 group-hover:w-[3px] ${
+                                                    ticket.priority === 'urgent' ? 'bg-[var(--accent-red)] w-[2px]' : 
+                                                    ticket.priority === 'high' ? 'bg-[var(--accent-orange)] w-[2px]' :
+                                                    ticket.priority === 'medium' ? 'bg-[var(--accent-yellow)] w-0 group-hover:w-[2px]' :
+                                                    'bg-[var(--border-strong)] w-0 group-hover:w-[2px]'
+                                                }`} />
+                                            )}
+                                            <div className="flex items-center gap-3 pl-1">
                                                 <PriorityIndicator priority={ticket.priority} />
                                                 <div>
                                                     <Link href={route('tickets.show', ticket.id)} className="font-medium hover:text-[var(--accent-orange)] transition-colors">
@@ -92,7 +100,7 @@ export default function Archive({ tickets }) {
                                                 size="sm" 
                                                 onClick={() => handleRestore(ticket.id)}
                                                 disabled={processing}
-                                                className="text-[var(--text-secondary)] hover:text-[var(--accent-green)] hover:bg-[var(--accent-green-soft)] transition-all opacity-0 group-hover:opacity-100"
+                                                className="text-[var(--text-secondary)] hover:text-[var(--accent-green)] hover:bg-[var(--accent-green-soft)] hover:border-[var(--accent-green)]/30 border border-transparent transition-all opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
                                                 title="Restore from archive"
                                             >
                                                 <ArchiveRestore className="w-4 h-4 mr-2" />

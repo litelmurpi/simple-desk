@@ -19,7 +19,7 @@ export default function SettingsLayout({ children, title }) {
             <Head title={`Settings - ${title}`} />
 
             <div className="max-w-[1000px] mx-auto anim-fade-in-up">
-                <div className="mb-[var(--space-8)]">
+                <div className="mb-[var(--space-6)] border-b border-[var(--border-default)] pb-[var(--space-4)]">
                     <h1 className="page-title">Settings</h1>
                     <p className="page-subtitle">Manage your application preferences and data.</p>
                 </div>

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { StatusBadge } from './StatusBadge';
 import { PriorityIndicator } from './PriorityIndicator';
 import { cn } from '@/lib/utils';
-import { Clock } from 'lucide-react'; // Needs lucide-react
+import { Clock, Pin } from 'lucide-react';
 
 export function TicketListItem({ ticket, isSelected, onSelect }) {
+    const handlePin = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        router.patch(route('tickets.pin', ticket.id), {}, { preserveScroll: true });
+    };
+
     // Format deadline
     const formatDeadline = (dateString, ticketStatus) => {
         if (!dateString) return null;
@@ -61,11 +67,25 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                 />
             </div>
 
+            {/* Pin Toggle Button */}
+            <button 
+                onClick={handlePin}
+                className={cn(
+                    "absolute right-4 top-4 p-1.5 rounded-md transition-all duration-200 z-10 focus:outline-none focus:ring-2 focus:ring-(--accent-blue)",
+                    ticket.is_pinned 
+                        ? "text-(--accent-blue) opacity-100" 
+                        : "text-(--text-tertiary) opacity-0 group-hover:opacity-100 hover:text-(--text-secondary) hover:bg-(--bg-surface)"
+                )}
+                title={ticket.is_pinned ? "Unpin ticket" : "Pin ticket"}
+            >
+                <Pin className={cn("w-4 h-4", ticket.is_pinned && "fill-current")} />
+            </button>
+
             {/* Primary content area */}
             <div className="flex-1 min-w-0 grid grid-cols-12 gap-(--space-4) items-start pt-0.5">
                 
                 {/* ID & Title */}
-                <div className="col-span-12 md:col-span-6 lg:col-span-5 flex items-start gap-(--space-3) overflow-hidden">
+                <div className="col-span-12 md:col-span-6 lg:col-span-5 flex items-start gap-(--space-3) overflow-hidden pr-8">
                     <div className="pt-1">
                         <PriorityIndicator priority={ticket.priority} showLabel={false} />
                     </div>
@@ -82,7 +102,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                         {ticket.subject && (
                             <div className="flex items-center">
                                 <Link href={route('subjects.show', ticket.subject.id)}
-                                    className="text-[11px] font-medium px-2 py-0.5 rounded-(--radius-sm) flex items-center transition-all duration-200 hover:brightness-125"
+                                    className="text-[var(--text-tiny)] font-semibold px-2 py-0.5 rounded-[var(--radius-sm)] flex items-center transition-all duration-200 hover:opacity-80 uppercase tracking-widest"
                                     style={{ 
                                         backgroundColor: `${ticket.subject.color}15`, 
                                         color: ticket.subject.color,
@@ -114,7 +134,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                 <div className="hidden md:flex col-span-3 items-start gap-1.5 overflow-x-hidden flex-wrap pt-0.5">
                     {ticket.tags && ticket.tags.slice(0, 3).map(tag => (
                         <span key={tag.id} 
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-semibold whitespace-nowrap"
+                            className="inline-flex items-center px-2 py-0.5 rounded-[var(--radius-sm)] text-[var(--text-tiny)] uppercase tracking-wider font-semibold whitespace-nowrap"
                             style={{ 
                                 backgroundColor: `${tag.color}15`, 
                                 color: tag.color,
@@ -124,7 +144,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                         </span>
                     ))}
                     {ticket.tags && ticket.tags.length > 3 && (
-                        <span className="text-[10px] font-medium text-(--text-tertiary) bg-(--bg-surface) px-2 py-0.5 rounded-full border border-(--border-subtle)">
+                        <span className="text-[var(--text-tiny)] font-medium text-[var(--text-tertiary)] bg-[var(--bg-surface)] px-2 py-0.5 rounded-[var(--radius-sm)] border border-[var(--border-subtle)]">
                             +{ticket.tags.length - 3}
                         </span>
                     )}

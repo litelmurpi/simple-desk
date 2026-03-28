@@ -16,46 +16,56 @@ export default function Show({ subject, tickets }) {
         <AppLayout title={subject.name}>
             <Head title={subject.name} />
 
-            <div className="flex flex-col space-y-[var(--space-6)]">
+            <div className="flex flex-col space-y-[var(--space-6)] anim-fade-in-up">
                 {/* Header */}
                 <div className="flex flex-col gap-[var(--space-4)]">
                     <div>
-                        <Link href={route('subjects.index')} className="text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] inline-flex items-center gap-1 text-[var(--text-caption)] mb-2 transition-colors">
+                        <Link href={route('subjects.index')} className="text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] inline-flex items-center gap-1 text-[var(--text-caption)] mb-3 transition-colors">
                             <ArrowLeft className="w-4 h-4" /> Back to Subjects
                         </Link>
-                        <div className="flex items-center gap-[var(--space-3)] mb-1">
-                            <div className="w-8 h-8 rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--caption)] font-bold text-white shadow-sm" style={{ backgroundColor: subject.color }}>
-                                {subject.code ? subject.code.substring(0, 2) : 'S'}
-                            </div>
-                            <h1 className="text-[var(--text-display)] text-[var(--text-primary)] tracking-tight flex items-center gap-3">
-                                {subject.name}
-                                {!subject.is_active && (
-                                    <span className="text-[var(--text-tiny)] bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-default)] px-2 py-0.5 rounded-[var(--radius-sm)] flex items-center font-normal tracking-normal uppercase">
-                                        Archived
-                                    </span>
+                        <div className="flex items-center justify-between gap-[var(--space-4)]">
+                            <div>
+                                <div className="flex items-center gap-[var(--space-3)] mb-1">
+                                    <div className="w-8 h-8 rounded-[var(--radius-md)] flex items-center justify-center text-[var(--text-caption)] font-bold text-white shadow-sm" style={{ backgroundColor: subject.color }}>
+                                        {subject.code ? subject.code.substring(0, 2) : 'S'}
+                                    </div>
+                                    <h1 className="text-[var(--text-display)] text-[var(--text-primary)] tracking-tight flex items-center gap-3">
+                                        {subject.name}
+                                        {!subject.is_active && (
+                                            <span className="text-[var(--text-tiny)] bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-default)] px-2 py-0.5 rounded-[var(--radius-sm)] flex items-center font-normal tracking-normal uppercase">
+                                                Archived
+                                            </span>
+                                        )}
+                                    </h1>
+                                </div>
+                                {subject.code && (
+                                    <p className="text-[var(--text-body)] text-[var(--text-secondary)] ml-11">
+                                        {subject.code} • Semester {subject.semester}
+                                    </p>
                                 )}
-                            </h1>
+                            </div>
+                            
+                            <Link href={route('tickets.create', { subject_id: subject.id })}>
+                                <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 shadow-sm">
+                                    <Plus className="w-4 h-4 mr-2" /> New Ticket
+                                </Button>
+                            </Link>
                         </div>
-                        {subject.code && (
-                            <p className="text-[var(--text-body)] text-[var(--text-secondary)]">
-                                {subject.code} • Semester {subject.semester}
-                            </p>
-                        )}
                     </div>
                 </div>
 
                 {/* Progress Overview Section */}
-                <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] p-[var(--space-5)] shadow-sm">
-                    <div className="flex justify-between items-end text-[var(--text-body)] mb-2">
+                <div className="card-elevated p-[var(--space-5)]">
+                    <div className="flex justify-between items-end text-[var(--text-body)] mb-3">
                         <span className="text-[var(--text-secondary)] font-medium">Task Completion</span>
                         <span className={cn("font-bold", subject.progress === 100 ? "text-[var(--accent-green)]" : "text-[var(--text-primary)]")}>
                             {subject.progress}%
                         </span>
                     </div>
                     
-                    <div className="h-3 w-full bg-[var(--bg-subtle)] rounded-full overflow-hidden mb-2">
+                    <div className="h-2.5 w-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-full overflow-hidden mb-3">
                         <div 
-                            className={cn("h-full transition-all duration-500", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-orange)]")} 
+                            className={cn("h-full transition-all duration-1000 ease-out", subject.progress === 100 ? "bg-[var(--accent-green)]" : "bg-[var(--accent-orange)]")} 
                             style={{ width: `${subject.progress}%` }} 
                         />
                     </div>
@@ -66,15 +76,10 @@ export default function Show({ subject, tickets }) {
                     </div>
                 </div>
 
-                <div className="flex justify-between items-end border-b border-[var(--border-default)] pb-2 mb-4">
+                <div className="border-b border-[var(--border-default)] pb-2 mb-4">
                     <h2 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)]">
                         Tickets
                     </h2>
-                    <Link href={route('tickets.create', { subject_id: subject.id })}>
-                        <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 h-8 text-[var(--text-caption)]">
-                            <Plus className="w-3.5 h-3.5 mr-1.5" /> New Ticket
-                        </Button>
-                    </Link>
                 </div>
 
                 {/* Ticket Lists */}

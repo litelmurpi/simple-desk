@@ -38,6 +38,13 @@ class DashboardController extends Controller
             ->orderBy('priority', 'desc')
             ->get();
 
+        // 2.5. Pinned Tickets
+        $pinnedTickets = Ticket::with(['subject', 'tags'])
+            ->pinned()
+            ->where('is_archived', false)
+            ->orderBy('pinned_at', 'desc')
+            ->get();
+
         // 3. Subject Progress (Active subjects only)
         $subjects = Subject::where('is_active', true)->get()->map(function ($subject) {
             $total = Ticket::where('subject_id', $subject->id)->where('is_archived', false)->count();
@@ -79,6 +86,7 @@ class DashboardController extends Controller
                 'today' => $dueToday,
                 'thisWeek' => $dueThisWeek,
             ],
+            'pinnedTickets' => $pinnedTickets,
             'subjectProgress' => $subjects,
             'chartData' => $chartData,
         ]);
