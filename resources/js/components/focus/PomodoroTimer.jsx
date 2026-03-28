@@ -12,6 +12,7 @@ export default function PomodoroTimer({ ticket }) {
     const [isRunning, setIsRunning] = useState(false);
     const [mode, setMode] = useState('work'); // 'work' | 'break'
     const [totalElapsedThisSession, setTotalElapsedThisSession] = useState(0);
+    const [isStrictMode, setIsStrictMode] = useState(false);
 
     // Handle timer tick
     useEffect(() => {
@@ -28,6 +29,26 @@ export default function PomodoroTimer({ ticket }) {
         }
         return () => clearInterval(timer);
     }, [isRunning, timeLeft, mode]);
+
+    // Handle Strict Mode: pause when tab loses focus
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden && isRunning && mode === 'work' && isStrictMode) {
+                setIsRunning(false);
+                if (window.Notification && Notification.permission === 'granted') {
+                    new Notification("Pomodoro Paused", { body: "Hey! You left the tab. Strict mode paused your timer." });
+                }
+            }
+        };
+
+        // Request notification permission if needed
+        if (isStrictMode && window.Notification && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+            Notification.requestPermission();
+        }
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }, [isRunning, mode, isStrictMode]);
 
     const handleComplete = useCallback(() => {
         setIsRunning(false);
@@ -164,9 +185,31 @@ export default function PomodoroTimer({ ticket }) {
             
             {mode === 'work' && isRunning && (
                 <div className="mt-4 text-center">
-                    <p className="text-[12px] text-[var(--text-tertiary)] italic animate-pulse">Stay focused...</p>
+                    <p className="text-[12px] text-[var(--accent-orange)] italic animate-pulse font-medium">
+                        {isStrictMode ? "Strict focus tracking active..." : "Stay focused..."}
+                    </p>
                 </div>
             )}
+
+            <div className="mt-4 flex justify-between items-center border-t border-[var(--border-subtle)] pt-3">
+                <span className="text-[11px] text-[var(--text-tertiary)] font-medium">Strict Mode (Tab tracker)</span>
+                <button
+                    onClick={() => setIsStrictMode(!isStrictMode)}
+                    className={cn(
+                        "relative inline-flex h-4 w-7 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none",
+                        isStrictMode ? "bg-[var(--accent-orange)]" : "bg-[var(--bg-subtle)] border-[var(--border-default)]"
+                    )}
+                >
+                    <span className="sr-only">Use strict mode</span>
+                    <span
+                        aria-hidden="true"
+                        className={cn(
+                            "pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white transition duration-200 ease-in-out shadow-sm",
+                            isStrictMode ? "translate-x-3" : "translate-x-0"
+                        )}
+                    />
+                </button>
+            </div>
         </div>
     );
 }
