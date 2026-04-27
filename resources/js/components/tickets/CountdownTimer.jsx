@@ -57,7 +57,7 @@ export function CountdownTimer({ deadline, isClosed = false, className }) {
     return (
         <span className={cn(
             "inline-flex items-center gap-1.5 text-[var(--text-caption)] font-medium",
-            isOverdue ? "text-[var(--accent-red)]" : "text-[var(--accent-orange)]",
+            isOverdue ? "text-[var(--accent-red)]" : "text-[var(--accent-blue)]",
             className
         )}>
             <Clock className="w-3.5 h-3.5" />

@@ -43,12 +43,10 @@ export default function Board({ tickets: initialTickets, subjects }) {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    // Update local state if props change (e.g. after a full page nav or broadcast)
     useEffect(() => {
         setTickets(initialTickets);
     }, [initialTickets]);
 
-    // Group tickets by status
     const getTicketsByStatus = (status) => {
         return tickets.filter(t => t.status === status);
     };
@@ -56,7 +54,7 @@ export default function Board({ tickets: initialTickets, subjects }) {
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 8, // Require 8px move before activating drag — prevents accidental drags on click
+                distance: 8,
             },
         }),
         useSensor(KeyboardSensor, {
@@ -78,7 +76,6 @@ export default function Board({ tickets: initialTickets, subjects }) {
 
         if (activeId === overId) return;
 
-        // Find items and their locations
         const activeContainer = tickets.find(t => t.id === activeId)?.status;
         
         let overContainer = over.data.current?.type === 'Column'
@@ -89,7 +86,6 @@ export default function Board({ tickets: initialTickets, subjects }) {
             return;
         }
 
-        // Optimistically move to new column locally during drag
         setTickets((prev) => {
             const activeIndex = prev.findIndex(t => t.id === activeId);
             const newTickets = [...prev];
@@ -113,22 +109,15 @@ export default function Board({ tickets: initialTickets, subjects }) {
         
         const draggedTicket = tickets.find(t => t.id === activeId);
         
-        // If the ticket's final status is different from initial backend status, we persist it
         const originalTicket = initialTickets.find(t => t.id === activeId);
         if (originalTicket && originalTicket.status !== overContainer) {
-            
-            // Re-order sorting within column can be done here if we implement a custom sort_order integer column.
-            // Right now we only update status.
             router.patch(route('tickets.status.update', activeId), {
                 status: overContainer
             }, {
                 preserveScroll: true,
                 preserveState: true,
-                onSuccess: () => {
-                    // Update initial state cache if needed or rely on server props refresh
-                },
+                onSuccess: () => {},
                 onError: () => {
-                    // Revert on error
                     setTickets(initialTickets);
                 }
             });
@@ -156,11 +145,11 @@ export default function Board({ tickets: initialTickets, subjects }) {
                     <div className="flex gap-[var(--space-3)]">
                         <Button 
                             onClick={() => setIsQuickAddVisible(!isQuickAddVisible)}
-                            className="bg-[var(--accent-orange)] text-[var(--text-inverse)] hover:bg-[oklch(from_var(--accent-orange)_calc(l_-_0.1)_c_h)] transition-colors shadow-sm font-medium"
+                            className="bg-[var(--accent-blue)] text-white hover:opacity-90 transition-colors shadow-sm font-medium"
                         >
                             Quick Add (N)
                         </Button>
-                        <Link href={route('tickets.create')} className="inline-flex items-center justify-center whitespace-nowrap text-[var(--text-label)] font-medium ring-offset-[var(--bg-base)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-default)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[var(--border-default)] hover:bg-[var(--bg-surface)] text-[var(--text-primary)] h-10 px-4 py-2 rounded-[var(--radius-md)] shadow-sm">
+                        <Link href={route('tickets.create')} className="inline-flex items-center justify-center whitespace-nowrap text-[14px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] disabled:pointer-events-none disabled:opacity-50 border border-[var(--border-default)] hover:bg-[var(--bg-surface)] text-[var(--text-primary)] h-10 px-4 py-2 rounded-[var(--radius-md)]">
                             <Plus className="w-4 h-4 mr-2" /> Full Form
                         </Link>
                     </div>
@@ -193,7 +182,6 @@ export default function Board({ tickets: initialTickets, subjects }) {
                             ))}
                         </div>
 
-                        {/* Portal for rendering the item being dragged — smooth, lifted feel */}
                         <DragOverlay
                             dropAnimation={{
                                 duration: 250,

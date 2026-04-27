@@ -84,14 +84,14 @@ export default function Subjects({ subjects }) {
                         <h2 className="text-[var(--text-title)] font-semibold text-[var(--text-primary)]">Manage Subjects</h2>
                         <p className="text-[var(--text-body)] text-[var(--text-secondary)] mt-1">Add, edit, or archive your courses and projects.</p>
                     </div>
-                    <Button onClick={handleArchiveAll} variant="outline" className="bg-[var(--bg-base)] border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)] transition-colors shadow-sm">
+                    <Button onClick={handleArchiveAll} variant="outline" className="bg-[var(--bg-base)] border-[var(--accent-blue)] text-[var(--accent-blue)] hover:bg-[var(--accent-blue-soft)] transition-colors shadow-sm">
                         <Archive className="w-4 h-4 mr-2" /> Start New Semester
                     </Button>
                 </div>
 
                 {/* Add New Subject */}
                 {!isAdding ? (
-                    <Button onClick={() => setIsAdding(true)} className="mb-[var(--space-6)] bg-[var(--accent-orange)] text-white shadow-sm">
+                    <Button onClick={() => setIsAdding(true)} className="mb-[var(--space-6)] bg-[var(--accent-blue)] text-white shadow-sm">
                         <Plus className="w-4 h-4 mr-2" /> Add Subject
                     </Button>
                 ) : (
@@ -139,7 +139,7 @@ export default function Subjects({ subjects }) {
                             </div>
                             <div className="flex justify-end gap-3 pt-2">
                                 <Button type="button" variant="ghost" onClick={() => setIsAdding(false)}>Cancel</Button>
-                                <Button type="submit" disabled={addProcessing} className="bg-[var(--accent-orange)] text-white">Save Subject</Button>
+                                <Button type="submit" disabled={addProcessing} className="bg-[var(--accent-blue)] text-white">Save Subject</Button>
                             </div>
                         </form>
                     </div>
@@ -193,7 +193,7 @@ export default function Subjects({ subjects }) {
                                         </div>
                                         <div className="flex justify-end gap-3 border-t border-[var(--border-default)] pt-4">
                                             <Button type="button" variant="ghost" onClick={() => setEditingId(null)}>Cancel</Button>
-                                            <Button type="submit" disabled={editProcessing} className="bg-[var(--accent-orange)] text-white">Update Subject</Button>
+                                            <Button type="submit" disabled={editProcessing} className="bg-[var(--accent-blue)] text-white">Update Subject</Button>
                                         </div>
                                     </form>
                                 ) : (
@@ -218,7 +218,7 @@ export default function Subjects({ subjects }) {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-1 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100 [&:hover]:opacity-100" style={{opacity: 1}}>
-                                            <Button variant="ghost" size="sm" onClick={() => startEditing(subject)} className="text-[var(--text-secondary)] hover:text-[var(--accent-orange)]">
+                                            <Button variant="ghost" size="sm" onClick={() => startEditing(subject)} className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)]">
                                                 <Edit2 className="w-4 h-4" />
                                             </Button>
                                             <Button variant="ghost" size="sm" onClick={() => handleDelete(subject.id)} className="text-[var(--text-secondary)] hover:text-[var(--accent-red)] hover:bg-[var(--accent-red-soft)]">

@@ -66,7 +66,7 @@ export default function Archive({ tickets }) {
                                             {ticket.priority && (
                                                 <div className={`absolute left-0 top-0 bottom-0 w-0 transition-all duration-300 group-hover:w-[3px] ${
                                                     ticket.priority === 'urgent' ? 'bg-[var(--accent-red)] w-[2px]' : 
-                                                    ticket.priority === 'high' ? 'bg-[var(--accent-orange)] w-[2px]' :
+                                                    ticket.priority === 'high' ? 'bg-[var(--accent-blue)] w-[2px]' :
                                                     ticket.priority === 'medium' ? 'bg-[var(--accent-yellow)] w-0 group-hover:w-[2px]' :
                                                     'bg-[var(--border-strong)] w-0 group-hover:w-[2px]'
                                                 }`} />
@@ -74,7 +74,7 @@ export default function Archive({ tickets }) {
                                             <div className="flex items-center gap-3 pl-1">
                                                 <PriorityIndicator priority={ticket.priority} />
                                                 <div>
-                                                    <Link href={route('tickets.show', ticket.id)} className="font-medium hover:text-[var(--accent-orange)] transition-colors">
+                                                    <Link href={route('tickets.show', ticket.id)} className="font-medium hover:text-[var(--accent-blue)] transition-colors">
                                                         {ticket.title}
                                                     </Link>
                                                     <div className="text-[var(--text-tiny)] text-[var(--text-tertiary)] mt-0.5 font-mono">{ticket.ticket_number}</div>

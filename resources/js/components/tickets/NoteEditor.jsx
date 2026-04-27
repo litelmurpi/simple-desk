@@ -91,7 +91,7 @@ export default function NoteEditor({
                         <Button 
                             type="button" 
                             size="sm" 
-                            className="bg-[var(--accent-orange)] text-white hover:opacity-90"
+                            className="bg-[var(--accent-blue)] text-white hover:opacity-90"
                             disabled={!body.trim() || isSubmitting}
                             onClick={handleSubmit}
                         >

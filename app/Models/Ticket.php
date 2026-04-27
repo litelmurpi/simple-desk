@@ -42,6 +42,20 @@ class Ticket extends Model
             if (empty($ticket->ticket_number)) {
                 $ticket->ticket_number = app(TicketNumberGenerator::class)->generate();
             }
+
+            if ($ticket->status === 'done' && empty($ticket->completed_at)) {
+                $ticket->completed_at = now();
+            }
+        });
+
+        static::updating(function ($ticket) {
+            if ($ticket->isDirty('status')) {
+                if ($ticket->status === 'done' && empty($ticket->completed_at)) {
+                    $ticket->completed_at = now();
+                } elseif ($ticket->status !== 'done') {
+                    $ticket->completed_at = null;
+                }
+            }
         });
     }
 
@@ -69,26 +83,26 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketAttachment::class)->latest();
     }
-    
+
     // Scopes for deadlines
     public function scopeOverdue($query)
     {
         return $query->where('status', '!=', 'done')
-                     ->where('deadline_at', '<', now());
+            ->where('deadline_at', '<', now());
     }
-    
+
     public function scopeDueToday($query)
     {
         return $query->where('status', '!=', 'done')
-                     ->whereDate('deadline_at', now()->toDateString());
+            ->whereDate('deadline_at', now()->toDateString());
     }
-    
+
     public function scopeDueThisWeek($query)
     {
         return $query->where('status', '!=', 'done')
-                     ->whereBetween('deadline_at', [now()->startOfWeek(), now()->endOfWeek()]);
+            ->whereBetween('deadline_at', [now()->startOfWeek(), now()->endOfWeek()]);
     }
-    
+
     public function scopePinned($query)
     {
         return $query->where('is_pinned', true);

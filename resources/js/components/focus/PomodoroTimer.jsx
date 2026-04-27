@@ -111,104 +111,105 @@ export default function PomodoroTimer({ ticket }) {
         : ((BREAK_TIME - timeLeft) / BREAK_TIME) * 100;
 
     return (
-        <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] p-[var(--space-5)] shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-                <h4 className="text-[11px] font-bold text-[var(--accent-orange)] uppercase tracking-wider flex items-center gap-1.5 transition-colors">
-                    {mode === 'work' ? (
-                        <><BrainCircuit className="w-4 h-4" /> Focus Session</>
-                    ) : (
-                        <><Coffee className="w-4 h-4 text-[var(--accent-blue)]" /> Break Time</>
-                    )}
-                </h4>
-                <div className="flex items-center gap-1.5 text-[11px] text-[var(--text-tertiary)] font-medium bg-[var(--bg-base)] px-2 py-1 rounded-[var(--radius-sm)] border border-[var(--border-subtle)]">
-                    <Clock className="w-3.5 h-3.5" />
-                    {ticket?.time_spent_minutes || 0}m logged
+        <div className="bg-[var(--bg-raised)] rounded-[var(--radius-xl)] p-[var(--space-lg)] shadow-[var(--shadow-soft)] flex flex-col items-center justify-center relative overflow-hidden">
+            {/* 1. Header context */}
+            <div className="w-full flex items-center justify-between mb-8">
+                <div className="flex items-center gap-2">
+                    <div className={cn(
+                        "w-2 h-2 rounded-full",
+                        mode === 'work' ? "bg-[var(--text-primary)]" : "bg-[var(--accent-blue)]"
+                    )}></div>
+                    <span className="text-[17px] font-semibold tracking-[-0.374px] text-[var(--text-primary)]">
+                        {mode === 'work' ? 'Focus Session' : 'Break Time'}
+                    </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[14px] tracking-[-0.224px] text-[var(--text-secondary)]">
+                    <Clock className="w-4 h-4 opacity-70" />
+                    <span>{ticket?.time_spent_minutes || 0}m logged</span>
                 </div>
             </div>
 
-            <div className="text-center py-4">
-                <div className="text-[48px] font-mono font-bold tracking-tight leading-none text-[var(--text-primary)] tabular-nums mb-1">
+            {/* 2. Timer Hero */}
+            <div className="text-center w-full my-[var(--space-md)]">
+                <div className="text-[88px] sm:text-[110px] font-sans font-semibold tracking-[-3px] sm:tracking-[-4px] leading-[1.0] text-[var(--text-primary)] tabular-nums">
                     {formatTime(timeLeft)}
                 </div>
-                
-                {/* Progress bar */}
-                <div className="w-full h-1.5 bg-[var(--bg-surface)] rounded-full overflow-hidden mb-6 border border-[var(--border-subtle)]">
-                    <div 
-                        className={cn(
-                            "h-full transition-all duration-1000 ease-linear",
-                            mode === 'work' ? "bg-[var(--accent-orange)]" : "bg-[var(--accent-blue)]"
-                        )}
-                        style={{ width: `${progressPercentage}%` }}
-                    />
-                </div>
-
-                <div className="flex items-center justify-center gap-[var(--space-3)]">
-                    <Button
-                        size="sm"
-                        onClick={toggleTimer}
-                        className={cn(
-                            "w-10 h-10 p-0 rounded-full transition-colors shadow-sm ring-offset-[var(--bg-raised)]",
-                            isRunning 
-                                ? "bg-[var(--bg-surface)] text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] border border-[var(--border-default)]" 
-                                : mode === 'work'
-                                    ? "bg-[var(--accent-orange)] hover:opacity-90 text-[var(--text-inverse)]"
-                                    : "bg-[var(--accent-blue)] hover:opacity-90 text-[var(--text-inverse)]"
-                        )}
-                    >
-                        {isRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-                    </Button>
-
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={stopTimer}
-                        disabled={!isRunning && timeLeft === (mode === 'work' ? WORK_TIME : BREAK_TIME)}
-                        className="h-10 px-4 text-[var(--text-secondary)] hover:text-[var(--accent-red)] hover:bg-[var(--accent-red-soft)] rounded-full transition-colors disabled:opacity-50"
-                        title={mode === 'work' && totalElapsedThisSession >= 60 ? "Stop & Log Time" : "Stop"}
-                    >
-                        <Square className="w-4 h-4 mr-1.5" /> 
-                        {mode === 'work' && totalElapsedThisSession >= 60 ? 'Stop & Log' : 'Stop'}
-                    </Button>
-                    
-                    {mode === 'break' && (
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={skipBreak}
-                            className="h-10 px-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-full transition-colors"
-                        >
-                            Skip
-                        </Button>
-                    )}
-                </div>
             </div>
-            
-            {mode === 'work' && isRunning && (
-                <div className="mt-4 text-center">
-                    <p className="text-[12px] text-[var(--accent-orange)] italic animate-pulse font-medium">
-                        {isStrictMode ? "Strict focus tracking active..." : "Stay focused..."}
-                    </p>
-                </div>
-            )}
 
-            <div className="mt-4 flex justify-between items-center border-t border-[var(--border-subtle)] pt-3">
-                <span className="text-[11px] text-[var(--text-tertiary)] font-medium">Strict Mode (Tab tracker)</span>
-                <button
-                    onClick={() => setIsStrictMode(!isStrictMode)}
+            {/* 3. Progress Bar */}
+            <div className="w-full max-w-sm h-1 bg-[var(--bg-subtle)] rounded-full overflow-hidden mb-12">
+                <div 
                     className={cn(
-                        "relative inline-flex h-4 w-7 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none",
-                        isStrictMode ? "bg-[var(--accent-orange)]" : "bg-[var(--bg-subtle)] border-[var(--border-default)]"
+                        "h-full transition-all duration-1000 ease-linear",
+                        mode === 'work' ? "bg-[var(--text-primary)]" : "bg-[var(--accent-blue)]"
+                    )}
+                    style={{ width: `${progressPercentage}%` }}
+                />
+            </div>
+
+            {/* 4. Controls */}
+            <div className="flex items-center justify-center gap-[var(--space-md)]">
+                <button
+                    onClick={toggleTimer}
+                    className={cn(
+                        "w-16 h-16 rounded-full flex items-center justify-center transition-transform hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-raised)] focus-visible:ring-[var(--accent-blue)]",
+                        isRunning 
+                            ? "bg-[var(--bg-overlay)] text-[var(--text-primary)]" 
+                            : mode === 'work' 
+                                ? "bg-[var(--text-primary)] text-[#000000]" 
+                                : "bg-[var(--accent-blue)] text-[#ffffff]"
                     )}
                 >
-                    <span className="sr-only">Use strict mode</span>
-                    <span
-                        aria-hidden="true"
-                        className={cn(
-                            "pointer-events-none inline-block h-3 w-3 transform rounded-full bg-white transition duration-200 ease-in-out shadow-sm",
-                            isStrictMode ? "translate-x-3" : "translate-x-0"
-                        )}
-                    />
+                    {isRunning ? <Pause className="w-6 h-6" fill="currentColor" /> : <Play className="w-6 h-6 ml-1" fill="currentColor" />}
                 </button>
+
+                <button
+                    onClick={stopTimer}
+                    disabled={!isRunning && timeLeft === (mode === 'work' ? WORK_TIME : BREAK_TIME)}
+                    className="w-16 h-16 rounded-full flex items-center justify-center bg-[var(--bg-overlay)] text-[var(--text-primary)] opacity-80 hover:opacity-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-20 disabled:hover:scale-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-raised)] focus-visible:ring-[var(--accent-blue)]"
+                    title={mode === 'work' && totalElapsedThisSession >= 60 ? "Stop & Log Time" : "Stop"}
+                >
+                    <Square className="w-5 h-5" fill="currentColor" />
+                </button>
+                
+                {mode === 'break' && (
+                    <button
+                        onClick={skipBreak}
+                        className="ml-2 px-5 py-2 border border-[var(--accent-blue)] text-[var(--accent-blue)] rounded-[980px] text-[14px] font-medium transition-colors hover:bg-[var(--accent-blue-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-raised)] focus-visible:ring-[var(--accent-blue)]"
+                    >
+                        Skip
+                    </button>
+                )}
+            </div>
+            
+            {/* 5. Footer Strict Mode & Pulse */}
+            <div className="w-full mt-[var(--space-10)] flex justify-between items-center text-[14px] text-[var(--text-secondary)] tracking-[-0.224px]">
+                <div className="flex items-center gap-2">
+                    <span className="font-medium">Strict Mode</span>
+                    <button
+                        onClick={() => setIsStrictMode(!isStrictMode)}
+                        className={cn(
+                            "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-[980px] border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-raised)] focus-visible:ring-[var(--accent-blue)]",
+                            isStrictMode ? "bg-[var(--accent-blue)]" : "bg-[var(--bg-subtle)]"
+                        )}
+                    >
+                        <span className="sr-only">Toggle strict mode</span>
+                        <span
+                            aria-hidden="true"
+                            className={cn(
+                                "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white transition duration-200 ease-in-out shadow-sm",
+                                isStrictMode ? "translate-x-4" : "translate-x-0"
+                            )}
+                        />
+                    </button>
+                </div>
+                <div className="h-5 flex items-center">
+                    {mode === 'work' && isRunning && (
+                        <span className="text-[14px] text-[var(--text-tertiary)] italic animate-pulse">
+                            {isStrictMode ? "Tracking focus..." : "Stay focused..."}
+                        </span>
+                    )}
+                </div>
             </div>
         </div>
     );

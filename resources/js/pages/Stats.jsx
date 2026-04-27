@@ -35,8 +35,8 @@ export default function Stats({ totalTickets, doneTickets, completionRate, ticke
                 {/* Top metrics */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-4)] mb-[var(--space-6)] stagger-children">
                     <div className="card-elevated p-[var(--space-5)] flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[var(--accent-orange-soft)] flex items-center justify-center flex-shrink-0">
-                            <BarChart3 className="w-5 h-5 text-[var(--accent-orange)]" />
+                        <div className="w-10 h-10 rounded-[var(--radius-lg)] bg-[var(--accent-blue-soft)] flex items-center justify-center flex-shrink-0">
+                            <BarChart3 className="w-5 h-5 text-[var(--accent-blue)]" />
                         </div>
                         <div>
                             <div className="text-[var(--text-tiny)] text-[var(--text-tertiary)] uppercase tracking-wider font-semibold">Total Tickets</div>

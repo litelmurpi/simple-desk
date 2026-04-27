@@ -12,6 +12,19 @@ import { TrendingUp, Sparkles } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 
+// Hardcoded colors for SVG context — CSS var() doesn't work reliably in SVG attributes
+const CHART_COLORS = {
+    green: '#30d158',
+    gridLine: 'rgba(255,255,255,0.05)',
+    tickText: 'rgba(255,255,255,0.40)',
+    cursor: 'rgba(255,255,255,0.15)',
+    tooltipBg: '#1a1a1f',
+    tooltipBorder: 'rgba(255,255,255,0.15)',
+    textPrimary: '#ffffff',
+    textSecondary: 'rgba(255,255,255,0.65)',
+    bgBase: '#000000',
+};
+
 export default function ProductivityChart({ data }) {
     const totalCompleted = useMemo(() => {
         return data.reduce((sum, item) => sum + item.completed, 0);
@@ -37,7 +50,7 @@ export default function ProductivityChart({ data }) {
                             Start completing tickets to see your productivity trend come alive.
                         </p>
                         <Link href={route('tickets.create')}>
-                            <Button size="sm" className="bg-[var(--accent-blue)] text-white hover:bg-blue-600 shadow-sm text-[var(--text-caption)]">
+                            <Button size="sm" className="bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-sm text-[14px]">
                                 Create Your First Ticket
                             </Button>
                         </Link>
@@ -52,48 +65,48 @@ export default function ProductivityChart({ data }) {
                         >
                             <defs>
                                 <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="var(--accent-green)" stopOpacity={0.3}/>
-                                    <stop offset="95%" stopColor="var(--accent-green)" stopOpacity={0}/>
+                                    <stop offset="5%" stopColor={CHART_COLORS.green} stopOpacity={0.3}/>
+                                    <stop offset="95%" stopColor={CHART_COLORS.green} stopOpacity={0}/>
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-subtle)" />
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={CHART_COLORS.gridLine} />
                             <XAxis 
                                 dataKey="date" 
                                 axisLine={false}
                                 tickLine={false}
-                                tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }}
+                                tick={{ fill: CHART_COLORS.tickText, fontSize: 11 }}
                                 tickMargin={12}
                                 minTickGap={20}
                             />
                             <YAxis 
                                 axisLine={false}
                                 tickLine={false}
-                                tick={{ fill: 'var(--text-tertiary)', fontSize: 11 }}
+                                tick={{ fill: CHART_COLORS.tickText, fontSize: 11 }}
                                 tickMargin={12}
                                 allowDecimals={false}
                             />
                             <Tooltip 
-                                cursor={{ stroke: 'var(--border-strong)', strokeWidth: 1, strokeDasharray: '4 4' }}
+                                cursor={{ stroke: CHART_COLORS.cursor, strokeWidth: 1, strokeDasharray: '4 4' }}
                                 contentStyle={{ 
-                                    backgroundColor: 'var(--bg-overlay)', 
-                                    borderColor: 'var(--border-strong)',
-                                    borderRadius: 'var(--radius-lg)',
-                                    color: 'var(--text-primary)',
-                                    boxShadow: 'var(--shadow-md)',
+                                    backgroundColor: CHART_COLORS.tooltipBg, 
+                                    borderColor: CHART_COLORS.tooltipBorder,
+                                    borderRadius: '12px',
+                                    color: CHART_COLORS.textPrimary,
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
                                     padding: '8px 12px'
                                 }}
-                                itemStyle={{ color: 'var(--accent-green)', fontWeight: 600, fontSize: '14px' }}
-                                labelStyle={{ color: 'var(--text-secondary)', marginBottom: '4px', fontSize: '12px' }}
+                                itemStyle={{ color: CHART_COLORS.green, fontWeight: 600, fontSize: '14px' }}
+                                labelStyle={{ color: CHART_COLORS.textSecondary, marginBottom: '4px', fontSize: '12px' }}
                             />
                             <Area 
                                 type="monotone" 
                                 dataKey="completed" 
                                 name="Tickets Done"
-                                stroke="var(--accent-green)" 
+                                stroke={CHART_COLORS.green}
                                 strokeWidth={2.5}
                                 fillOpacity={1} 
                                 fill="url(#colorCompleted)" 
-                                activeDot={{ r: 5, fill: 'var(--accent-green)', stroke: 'var(--bg-base)', strokeWidth: 2 }}
+                                activeDot={{ r: 5, fill: CHART_COLORS.green, stroke: CHART_COLORS.bgBase, strokeWidth: 2 }}
                             />
                         </AreaChart>
                     </ResponsiveContainer>

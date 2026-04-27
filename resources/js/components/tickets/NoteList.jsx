@@ -51,7 +51,7 @@ export default function NoteList({ notes, ticketId }) {
             {notes.map((note) => (
                 <div key={note.id} className="relative pl-6 before:absolute before:inset-y-0 before:left-[11px] before:w-px before:bg-[var(--border-default)] last:before:bg-transparent">
                     {/* Timeline dot */}
-                    <div className="absolute left-0 top-1.5 w-[23px] h-[23px] rounded-full bg-[var(--bg-surface)] border-2 border-[var(--border-default)] flex items-center justify-center z-10 transition-colors group-hover:border-[var(--accent-orange)]">
+                    <div className="absolute left-0 top-1.5 w-[23px] h-[23px] rounded-full bg-[var(--bg-surface)] border-2 border-[var(--border-default)] flex items-center justify-center z-10 transition-colors group-hover:border-[var(--accent-blue)]">
                         <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-tertiary)]" />
                     </div>
 
@@ -84,7 +84,7 @@ export default function NoteList({ notes, ticketId }) {
                                             variant="ghost" 
                                             size="sm" 
                                             onClick={() => setEditingId(note.id)}
-                                            className="h-7 w-7 p-0 text-[var(--text-secondary)] hover:text-[var(--accent-orange)]"
+                                            className="h-7 w-7 p-0 text-[var(--text-secondary)] hover:text-[var(--accent-blue)]"
                                         >
                                             <Pen className="w-3.5 h-3.5" />
                                         </Button>

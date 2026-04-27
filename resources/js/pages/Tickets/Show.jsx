@@ -90,7 +90,7 @@ export default function Show({ ticket }) {
                             <Copy className="w-4 h-4" />
                         </Button>
                         <Link href={route('tickets.edit', ticket.id)}>
-                            <Button variant="ghost" size="sm" className="text-[var(--text-secondary)] hover:text-[var(--accent-orange)] hover:bg-[var(--accent-orange-soft)]">
+                            <Button variant="ghost" size="sm" className="text-[var(--text-secondary)] hover:text-[var(--accent-blue)] hover:bg-[var(--accent-blue-soft)]">
                                 <Pencil className="w-4 h-4 mr-2" /> Edit
                             </Button>
                         </Link>
@@ -107,7 +107,7 @@ export default function Show({ ticket }) {
                         <div className="bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-[var(--radius-xl)] shadow-sm overflow-hidden transition-colors hover:border-[var(--border-default)]">
                             <div className="section-header px-[var(--space-5)] py-[var(--space-4)] border-b border-[var(--border-default)] bg-[var(--bg-surface)] flex justify-between items-center">
                                 <h3 className="text-[var(--text-heading)] text-[var(--text-primary)] font-semibold flex items-center gap-2">
-                                    <AlignLeft className="w-4.5 h-4.5 text-[var(--accent-orange)] opacity-80" /> Description
+                                    <AlignLeft className="w-4.5 h-4.5 text-[var(--accent-blue)] opacity-80" /> Description
                                 </h3>
                             </div>
                             <div className={cn("p-[var(--space-5)] md:p-[var(--space-6)] text-[var(--text-body)] leading-relaxed min-h-[140px]", ticket.description ? "text-[var(--text-primary)]" : "flex flex-col items-center justify-center text-center")}>
@@ -131,10 +131,10 @@ export default function Show({ ticket }) {
                         <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] p-2 sm:p-5 shadow-sm">
                             <Tabs defaultValue="notes" className="w-full">
                                 <TabsList className="bg-transparent w-full justify-start overflow-x-auto border-b border-[var(--border-subtle)] rounded-none px-0 h-auto pb-0 gap-6">
-                                    <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                                    <TabsTrigger value="notes" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                                         <MessageSquare className="w-4 h-4 mr-2" /> Notes
                                     </TabsTrigger>
-                                    <TabsTrigger value="attachments" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                                    <TabsTrigger value="attachments" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                                         <Paperclip className="w-4 h-4 mr-2" /> Attachments
                                         {ticket.attachments?.length > 0 && (
                                             <span className="ml-2 bg-[var(--bg-surface)] text-[var(--text-primary)] text-[10px] py-0.5 px-2 rounded-full border border-[var(--border-strong)]">
@@ -142,7 +142,7 @@ export default function Show({ ticket }) {
                                             </span>
                                         )}
                                     </TabsTrigger>
-                                    <TabsTrigger value="history" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-orange)] data-[state=active]:text-[var(--accent-orange)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                                    <TabsTrigger value="history" className="data-[state=active]:bg-transparent data-[state=active]:border-b-[3px] data-[state=active]:border-[var(--accent-blue)] data-[state=active]:text-[var(--accent-blue)] data-[state=active]:shadow-none rounded-none px-1 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                                         <History className="w-4 h-4 mr-2" /> History
                                     </TabsTrigger>
                                 </TabsList>
@@ -235,7 +235,7 @@ export default function Show({ ticket }) {
                         <div className="bg-[var(--bg-raised)] border border-[var(--border-default)] rounded-[var(--radius-xl)] p-[var(--space-5)] shadow-sm space-y-[var(--space-3)]">
                             <div className="p-3 bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-[var(--radius-lg)] hover:border-[var(--border-default)] transition-colors group">
                                 <h4 className="text-[11px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider mb-2.5 flex items-center gap-1.5 group-hover:text-[var(--text-secondary)] transition-colors">
-                                    <AlertCircle className="w-3.5 h-3.5 text-[var(--accent-orange)] opacity-80" /> Priority
+                                    <AlertCircle className="w-3.5 h-3.5 text-[var(--accent-blue)] opacity-80" /> Priority
                                 </h4>
                                 <PriorityIndicator priority={ticket.priority} showLabel={true} />
                             </div>

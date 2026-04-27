@@ -139,7 +139,7 @@ export function CommandPalette() {
                                             onMouseEnter={() => setSelectedIndex(currentIndex)}
                                             className={cn(
                                                 "flex items-center justify-between p-3 rounded-md cursor-pointer transition-colors duration-150",
-                                                isSelected ? "bg-[var(--accent-orange)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
+                                                isSelected ? "bg-[var(--accent-blue)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
                                             )}
                                         >
                                             <div className="flex items-center gap-3 min-w-0">
@@ -190,7 +190,7 @@ export function CommandPalette() {
                                             onMouseEnter={() => setSelectedIndex(currentIndex)}
                                             className={cn(
                                                 "flex items-center gap-3 p-3 rounded-md cursor-pointer transition-colors duration-150",
-                                                isSelected ? "bg-[var(--accent-orange)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
+                                                isSelected ? "bg-[var(--accent-blue)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
                                             )}
                                         >
                                             <div className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${subject.color}20` }}>
@@ -227,7 +227,7 @@ export function CommandPalette() {
                                             onMouseEnter={() => setSelectedIndex(currentIndex)}
                                             className={cn(
                                                 "flex items-center gap-3 p-3 rounded-md cursor-pointer transition-colors duration-150",
-                                                isSelected ? "bg-[var(--accent-orange)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
+                                                isSelected ? "bg-[var(--accent-blue)] text-white" : "hover:bg-[var(--bg-surface)] text-[var(--text-primary)]"
                                             )}
                                         >
                                             <Tag className="w-4 h-4" style={{ color: tag.color || '#A0A0AB' }} />

@@ -18,11 +18,11 @@ export default function DeadlineList({ today, thisWeek }) {
         return (
             <div className="card-elevated h-full flex flex-col items-center justify-center anim-fade-in-up" style={{ animationDelay: '150ms' }}>
                 <div className="empty-state max-w-sm text-center">
-                    <div className="empty-state-icon bg[var(--accent-green-soft)] mx-auto mb-4">
-                        <PartyPopper className="w-6 h-6 text[var(--accent-green)]" />
+                    <div className="empty-state-icon bg-[var(--accent-green-soft)] mx-auto mb-4">
+                        <PartyPopper className="w-6 h-6 text-[var(--accent-green)]" />
                     </div>
                     <p className="empty-state-title">You're all caught up!</p>
-                    <p className="empty-state-description text[var(--text-secondary)]">
+                    <p className="empty-state-description text-[var(--text-secondary)]">
                         No immediate deadlines for today or the rest of the week. Nice work.
                     </p>
                 </div>
@@ -34,9 +34,9 @@ export default function DeadlineList({ today, thisWeek }) {
         <Link 
             href={route('tickets.show', ticket.id)}
             className={cn(
-                "group block p-[var(--space-3)] rounded-[var(--radius-lg)] border border-transparent",
+                "group block p-[var(--space-3)] rounded-[var(--radius-md)]",
                 "transition-all duration-300 ease-out",
-                "hover:bg-[var(--bg-surface)] hover:border-[var(--border-subtle)] hover:shadow-md hover:-translate-y-px"
+                "hover:bg-[var(--bg-surface)] hover:shadow-md hover:-translate-y-px"
             )}
         >
             <div className="flex items-start gap-3">
@@ -45,26 +45,26 @@ export default function DeadlineList({ today, thisWeek }) {
                 </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1.5">
-                        <span className="text-[11px] font-mono text[var(--text-tertiary)] bg[var(--bg-base)] px-1.5 py-0.5 rounded[var(--radius-sm)] border border[var(--border-subtle)] transition-colors duration-200 group-hover:border[var(--border-default)] group-hover:bg[var(--bg-raised)]">
+                        <span className="text-[11px] font-mono text-[var(--text-tertiary)] bg-[var(--bg-base)] px-1.5 py-0.5 rounded-[var(--radius-sm)] border border-[var(--border-subtle)] transition-colors duration-200 group-hover:border-[var(--border-default)] group-hover:bg-[var(--bg-raised)]">
                             {ticket.ticket_number}
                         </span>
-                        <h4 className="text-[13px] text[var(--text-primary)] font-semibold truncate transition-colors duration-200 group-hover:text[var(--accent-orange)]">
+                        <h4 className="text-[13px] text-[var(--text-primary)] font-semibold truncate transition-colors duration-200 group-hover:text-[var(--accent-blue)]">
                             {ticket.title}
                         </h4>
                     </div>
                     
-                    <div className="flex flex-wrap items-center gap-2 text-[11px] text[var(--text-secondary)] font-medium">
+                    <div className="flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-secondary)] font-medium">
                         <StatusBadge status={ticket.status} />
                         {ticket.subject && (
-                            <div className="flex items-center gap-1.5 bg[var(--bg-base)] px-1.5 py-0.5 rounded[var(--radius-sm)] border border[var(--border-subtle)]">
+                            <div className="flex items-center gap-1.5 bg-[var(--bg-base)] px-1.5 py-0.5 rounded-[var(--radius-sm)] border border-[var(--border-subtle)]">
                                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ticket.subject.color }}></span>
                                 <span>{ticket.subject.code || ticket.subject.name}</span>
                             </div>
                         )}
-                        <span className="text[var(--border-strong)]">•</span>
+                        <span className="text-[var(--border-strong)]">•</span>
                         <span className={cn(
                             "flex items-center gap-1",
-                            isUrgent ? "text[var(--accent-red)]" : "text[var(--text-secondary)]"
+                            isUrgent ? "text-[var(--accent-red)]" : "text-[var(--text-secondary)]"
                         )}>
                             {isUrgent && <AlertCircle className="w-3.5 h-3.5" />}
                             {isUrgent ? 'Due Today' : `Due ${dayjs(ticket.deadline_at).format('ddd, MMM D')}`}
@@ -77,14 +77,14 @@ export default function DeadlineList({ today, thisWeek }) {
 
     return (
         <div className="card-elevated flex flex-col h-full overflow-hidden anim-fade-in-up" style={{ animationDelay: '150ms' }}>
-            <div className="section-header flex justify-between items-center px[var(--space-4)] py[var(--space-4)] border-b border[var(--border-default)] bg[var(--bg-surface)]">
-                <h3 className="text-[14px] font-semibold text[var(--text-primary)] flex items-center gap-2">
-                    <CalendarDays className="w-4 h-4 text[var(--accent-orange)]" />
+            <div className="section-header flex justify-between items-center">
+                <h3 className="text-[14px] font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                    <CalendarDays className="w-4 h-4 text-[var(--accent-blue)]" />
                     Upcoming Deadlines
                 </h3>
             </div>
             
-            <div className="p[var(--space-2)] flex-1 overflow-y-auto custom-scrollbar">
+            <div className="p-[var(--space-2)] flex-1 overflow-y-auto custom-scrollbar">
                 {today.length > 0 && (
                     <div className="mb-4">
                         <div className="px-3 py-2 flex items-center gap-1.5 text-[11px] font-bold text-[var(--accent-red)] uppercase tracking-wider">
@@ -102,9 +102,9 @@ export default function DeadlineList({ today, thisWeek }) {
 
                 {thisWeek.length > 0 && (
                     <div>
-                        <div className="px-3 py-2 text-[11px] font-bold text[var(--text-tertiary)] uppercase tracking-wider relative flex items-center gap-3">
+                        <div className="px-3 py-2 text-[11px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider relative flex items-center gap-3">
                             <span>Later This Week</span>
-                            <div className="h-px flex-1 bg[var(--border-subtle)]"></div>
+                            <div className="h-px flex-1 bg-[var(--border-subtle)]"></div>
                         </div>
                         <div className="space-y-1">
                             {thisWeek.map(ticket => <TicketRow key={ticket.id} ticket={ticket} isUrgent={false} />)}

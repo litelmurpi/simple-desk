@@ -32,8 +32,8 @@ export default function StatsCards({ stats }) {
             title: 'Current Streak',
             value: `${stats.streak} Days`,
             icon: Flame,
-            color: stats.streak > 0 ? 'text-[var(--accent-orange)]' : 'text-[var(--text-secondary)]',
-            bg: stats.streak > 0 ? 'bg-[var(--accent-orange-soft)] border-[rgba(249,115,22,0.2)]' : 'bg-[var(--bg-surface)] border-[var(--border-default)]',
+            color: stats.streak > 0 ? 'text-[var(--accent-blue)]' : 'text-[var(--text-secondary)]',
+            bg: stats.streak > 0 ? 'bg-[var(--accent-blue-soft)] border-[rgba(249,115,22,0.2)]' : 'bg-[var(--bg-surface)] border-[var(--border-default)]',
             glow: stats.streak > 0 ? 'hover:shadow-[0_0_20px_rgba(249,115,22,0.08)]' : ''
         }
     ];

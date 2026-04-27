@@ -53,7 +53,7 @@ export function Toaster() {
         success: <CheckCircle className="w-4 h-4 text-[var(--accent-green)]" />,
         error: <AlertCircle className="w-4 h-4 text-[var(--accent-red)]" />,
         warning: <AlertTriangle className="w-4 h-4 text-[var(--accent-yellow)]" />,
-        info: <Info className="w-4 h-4 text-[var(--accent-orange)]" />,
+        info: <Info className="w-4 h-4 text-[var(--accent-blue)]" />,
     };
 
     return (

@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 
 export default function Dashboard({ stats, deadlines, pinnedTickets, subjectProgress, chartData }) {
 
-
     return (
         <AppLayout title="Dashboard">
             <Head title="Dashboard" />
@@ -33,7 +32,7 @@ export default function Dashboard({ stats, deadlines, pinnedTickets, subjectProg
                     
                     <div className="flex items-center gap-3">
                         <Link href={route('tickets.create')}>
-                            <Button className="bg-[var(--accent-orange)] text-white hover:opacity-90 shadow-sm">
+                            <Button className="bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-sm">
                                 <Plus className="w-4 h-4 mr-2" /> New Ticket
                             </Button>
                         </Link>

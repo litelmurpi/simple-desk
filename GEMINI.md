@@ -7,11 +7,11 @@
 ## PROJECT
 
 ```
-name    : [Project Name]
-type    : [Web App | API | CLI | Service | Library]
-lang    : [e.g. Go 1.22 | PHP 8.2 | Python 3.12 | Node 20]
-stack   : [e.g. Gin + PostgreSQL + Redis]
-pkg_mgr : [go mod | composer | pip | npm | cargo]
+name    : Simple Desk
+type    : Web App
+lang    : PHP 8.2
+stack   : Laravel + Inertia + Vue 3 + MySQL
+pkg_mgr : composer
 module  : [e.g. github.com/org/repo]
 desc    : [1–2 sentence description]
 ```
@@ -484,148 +484,116 @@ Sebelum coding UI, Raka selalu jawab 4 pertanyaan ini:
 
 | Token | Hex | Fungsi |
 |-------|-----|--------|
-| `--bg-base` | `#0A0A0B` | Background utama |
-| `--bg-raised` | `#111113` | Card, sidebar, panel |
-| `--bg-overlay` | `#1A1A1F` | Modal, dropdown, popover |
-| `--bg-surface` | `#222228` | Input field, hover state |
-| `--bg-subtle` | `#2A2A32` | Hover overlay, selected row |
+| `--bg-base-dark` | `#000000` | Background utama dark section (immersive) |
+| `--bg-base-light`| `#f5f5f7` | Background utama light section (informational) |
+| `--bg-surface-dark-1` | `#272729` | Card background di dark section |
+| `--bg-surface-dark-2` | `#262628` | Subtle surface di dark section |
+| `--bg-surface-dark-3` | `#28282a` | Elevated card di dark section |
+| `--bg-surface-light`  | `#fafafc` | Background button light/search/filter |
+| `--bg-overlay` | `rgba(210, 210, 215, 0.64)` | Overlay media control |
+| `--bg-nav-glass`| `rgba(0, 0, 0, 0.8)` | Sticky nav background (with blur) |
 
 ### Colors — Text
 
 | Token | Hex | Fungsi |
 |-------|-----|--------|
-| `--text-primary` | `#EDEDEF` | Heading, judul tiket |
-| `--text-secondary` | `#A0A0AB` | Body text, deskripsi |
-| `--text-tertiary` | `#62626B` | Placeholder, hint, caption |
-| `--text-disabled` | `#3E3E45` | Disabled state |
-| `--text-inverse` | `#0A0A0B` | Teks di atas warna solid terang |
-
-### Colors — Border
-
-| Token | Hex | Fungsi |
-|-------|-----|--------|
-| `--border-default` | `#2A2A32` | Border kartu, divider |
-| `--border-subtle` | `#1F1F25` | Border halus, separator |
-| `--border-strong` | `#3E3E45` | Border aktif, focus ring |
+| `--text-primary-dark` | `#ffffff` | Teks utama di background dark |
+| `--text-primary-light`| `#1d1d1f` | Teks utama di background light |
+| `--text-secondary-light`| `rgba(0, 0, 0, 0.8)` | Teks sekunder/nav di background light |
+| `--text-tertiary` | `rgba(0, 0, 0, 0.48)` | Teks disable, icon carousel |
 
 ### Colors — Accent (Semantic)
 
 | Token | Hex | Fungsi |
 |-------|-----|--------|
-| `--accent-blue` | `#3B82F6` | Primary action, link, focus ring |
-| `--accent-blue-soft` | `rgba(59,130,246,0.12)` | Hover/selected state |
-| `--accent-green` | `#22C55E` | DONE, success |
-| `--accent-green-soft` | `rgba(34,197,94,0.12)` | Badge bg green |
-| `--accent-yellow` | `#EAB308` | OPEN, warning, medium priority |
-| `--accent-yellow-soft` | `rgba(234,179,8,0.12)` | Badge bg yellow |
-| `--accent-red` | `#EF4444` | Urgent, overdue, destructive |
-| `--accent-red-soft` | `rgba(239,68,68,0.12)` | Badge bg red |
-| `--accent-orange` | `#F97316` | High priority, attention |
-| `--accent-orange-soft` | `rgba(249,115,22,0.12)` | Badge bg orange |
-| `--accent-purple` | `#8B5CF6` | IN PROGRESS, highlight |
-| `--accent-purple-soft` | `rgba(139,92,246,0.12)` | Badge bg purple |
-| `--accent-gray` | `#71717A` | ARCHIVED, BLOCKED, neutral |
+| `--accent-blue` | `#0071e3` | Primary CTA, focus ring (SATU-SATUNYA aksen warna solid) |
+| `--accent-link-light` | `#0066cc` | Link text di background light ("Learn more") |
+| `--accent-link-dark` | `#2997ff` | Link text di background dark ("Learn more") |
+| `--btn-active-light` | `#ededf2` | State active untuk button light |
+| `--btn-hover-dark-close` | `rgba(255, 255, 255, 0.32)` | Hover modal close button di dark |
 
 ### Typography
 
-Font: **Inter** (Google Fonts). Mono: **JetBrains Mono** 13px.
+Font: **SF Pro Display** (Display/Hero) dan **SF Pro Text** (Body). Fallbacks `SF Pro Icons`, `Helvetica Neue`, `Arial`.
+*Wajib mengaplikasikan negative letter spacing (tracking).*
 
-| Token | Size | Weight | LH | Fungsi |
-|-------|------|--------|----|--------|
-| `--text-display` | 28px | 700 | 1.2 | Judul halaman utama |
-| `--text-title` | 20px | 600 | 1.3 | Section heading, modal title |
-| `--text-heading` | 16px | 600 | 1.4 | Card title, sub-heading |
-| `--text-body` | 14px | 400 | 1.6 | Body text, deskripsi |
-| `--text-label` | 13px | 500 | 1.4 | Form label, tab, nav |
-| `--text-caption` | 12px | 400 | 1.4 | Timestamp, meta, hint |
-| `--text-tiny` | 11px | 500 | 1.3 | Badge, counter, shortcut |
+| Token | Size | Weight | LH | Tracking | Fungsi |
+|-------|------|--------|----|----------|--------|
+| `--text-display-hero` | 56px | 600 | 1.07 | -0.28px | Headline utama produk |
+| `--text-section-hd` | 40px | 600 | 1.10 | normal | Section title |
+| `--text-tile-hd` | 28px | 400 | 1.14 | 0.196px| Judul tile produk |
+| `--text-card-bold` | 21px | 700 | 1.19 | 0.231px| Headings card (bold) |
+| `--text-card` | 21px | 400 | 1.19 | 0.231px| Headings card (reguler) |
+| `--text-nav` | 34px | 600 | 1.47 | -0.374px| Large nav |
+| `--text-body` | 17px | 400 | 1.47 | -0.374px| Reading text utama |
+| `--text-body-strong` | 17px | 600 | 1.24 | -0.374px| Emphasized teks, label |
+| `--text-btn-lg` | 18px | 300 | 1.00 | normal | Button text besar |
+| `--text-btn` | 17px | 400 | 2.41 | normal | Button standard |
+| `--text-link` | 14px | 400 | 1.43 | -0.224px| Link inline, "Learn more" |
+| `--text-caption` | 14px | 400 | 1.29 | -0.224px| Deskripsi, caption |
+| `--text-micro` | 12px | 400 | 1.33 | -0.120px| Fine print, footer |
 
-### Spacing (4px grid)
+### Spacing (Base unit: 8px)
 
 | Token | Value | Token | Value |
 |-------|-------|-------|-------|
-| `--space-1` | 4px | `--space-8` | 32px |
-| `--space-2` | 8px | `--space-10` | 40px |
-| `--space-3` | 12px | `--space-12` | 48px |
-| `--space-4` | 16px | `--space-16` | 64px |
-| `--space-5` | 20px | | |
-| `--space-6` | 24px | | |
+| `--space-micro-1` | 2px | `--space-1` | 8px |
+| `--space-micro-2` | 4px | `--space-2` | 14px |
+| `--space-micro-3` | 5px | `--space-3` | 15px |
+| `--space-micro-4` | 6px | `--space-4` | 17px |
+| `--space-micro-5` | 7px | `--space-5` | 20px |
+| `--space-micro-6` | 9px | `--space-md` | 24px |
+| `--space-micro-7` | 10px | `--space-lg` | 32px |
+| `--space-micro-8` | 11px | `--space-xl` | 48px |
 
 ### Border Radius
 
 | Token | Value | Penggunaan |
 |-------|-------|------------|
-| `--radius-sm` | 4px | Badge, tag, chip |
-| `--radius-md` | 6px | Button, input, dropdown |
-| `--radius-lg` | 8px | Card, panel |
-| `--radius-xl` | 12px | Modal, dialog |
-| `--radius-full` | 9999px | Avatar, circular |
+| `--radius-micro` | 5px | Container kecil, link tags |
+| `--radius-md` | 8px | Button CTA, product card, image box |
+| `--radius-lg` | 11px | Search input, filter |
+| `--radius-xl` | 12px | Feature panel, container foto |
+| `--radius-pill` | 980px | CTA Links ("Learn more", "Shop") |
+| `--radius-full` | 50% | Media control (play, arrow) |
 
-### Shadows
-
-Shadow di dark UI → subtle. Andalkan **border + bg layer**.
+### Shadows & Elevation
 
 | Token | Value | Penggunaan |
 |-------|-------|------------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.4)` | Button, input |
-| `--shadow-md` | `0 4px 12px rgba(0,0,0,0.5)` | Card, dropdown |
-| `--shadow-lg` | `0 8px 24px rgba(0,0,0,0.6)` | Modal, dialog |
-| `--shadow-glow` | `0 0 0 1px var(--accent-blue), 0 0 0 4px var(--accent-blue-soft)` | Focus ring |
+| `--shadow-soft` | `0px 5px 30px 3px rgba(0,0,0,0.22)` | Elevated elements, diffuse lift |
+| `--nav-glass` | `saturate(180%) blur(20px)` | Backdrop-filter untuk sticky nav |
+| `--focus-ring` | `0 0 0 2px var(--accent-blue)` | Focus tab outline |
 
 ### Motion
 
 | Token | Value | Penggunaan |
 |-------|-------|------------|
-| `--duration-fast` | `100ms` | Hover, opacity toggle |
-| `--duration-normal` | `200ms` | Dropdown, tab switch |
-| `--duration-slow` | `300ms` | Modal, page transition |
-| `--easing-default` | `cubic-bezier(0.25, 0.1, 0.25, 1)` | Sebagian besar transisi |
-| `--easing-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Bounce halus (elemen muncul) |
-| `--easing-out` | `cubic-bezier(0, 0, 0.2, 1)` | Elemen keluar layar |
-
-> Wajib: `prefers-reduced-motion` → transisi instan tanpa animasi.
+| `--duration-fast` | `100ms` | Hover instan untuk interactive elements |
+| `--easing-default`| `cubic-bezier(0.25, 0.1, 0.25, 1)` | Standard |
 
 ### Component Patterns
 
-**Status Badge:**
-
-| Status | BG | Text | Border |
-|--------|-----|------|--------|
-| OPEN | `--accent-yellow-soft` | `--accent-yellow` | — |
-| IN PROGRESS | `--accent-purple-soft` | `--accent-purple` | — |
-| BLOCKED | `--bg-surface` | `--accent-red` | `--accent-red-soft` |
-| DONE | `--accent-green-soft` | `--accent-green` | — |
-| ARCHIVED | `--bg-surface` | `--accent-gray` | — |
-
-**Priority Indicator:**
-
-| Prioritas | Visual | Warna |
-|-----------|--------|-------|
-| Urgent | ● filled | `--accent-red` |
-| High | ● filled | `--accent-orange` |
-| Medium | ◐ half | `--accent-yellow` |
-| Low | ○ empty | `--accent-gray` |
-
 **Button Hierarchy:**
 
-| Variant | BG | Text | Border | Kapan |
-|---------|-----|------|--------|-------|
-| Primary | `--accent-blue` | `--text-inverse` | — | 1× per halaman, CTA utama |
-| Secondary | `--bg-surface` | `--text-primary` | `--border-default` | Action pendukung |
-| Ghost | transparent | `--text-secondary` | hover: `--bg-surface` | Tersier, toolbar |
-| Danger | `--accent-red-soft` | `--accent-red` | `--accent-red-soft` | Destructive |
+| Variant | BG | Text | Border | Radius | Kapan |
+|---------|-----|------|--------|--------|-------|
+| Primary CTA | `--accent-blue` | `#ffffff` | — | 8px | CTA utama (Buy, Shop) |
+| Pill CTA | transparan | `--accent-link-*` | solid link color | 980px | "Learn more" links inline |
+| Dark CTA | `#1d1d1f` | `#ffffff` | — | 8px | Secondary di bg light |
+| Filter/Search | `--bg-surface-light`| `rgba(0,0,0,0.8)`| `rgba(0,0,0,0.04)`| 11px | Input/filter |
 
-### Breakpoints
+### Breakpoints & Layout
+
+Apple design berfokus pada "Cinematic rhythm". Tidak ada border, hanya warna solid.
+Max content width ≈980px untuk section terpusat.
 
 | Token | Width | Target |
 |-------|-------|--------|
-| `--bp-sm` | 640px | Tablet portrait |
-| `--bp-md` | 768px | Tablet landscape |
-| `--bp-lg` | 1024px | Laptop kecil |
-| `--bp-xl` | 1280px | Desktop — **layout utama** |
-| `--bp-2xl` | 1536px | Monitor lebar |
-
-> Layout: Sidebar 240px (collapsible) + Content fluid. Sidebar auto-collapse di < `--bp-lg`.
+| `--bp-sm` | 640px | Mobile Large |
+| `--bp-md` | 834px | Tablet |
+| `--bp-lg` | 1024px | Desktop Small |
+| `--bp-xl` | 1440px | Large Desktop |
 
 ---
 

@@ -39,7 +39,7 @@ export default function AttachmentList({ attachments, ticketId }) {
                 
                 return (
                     <div key={file.id} className="group relative border border-[var(--border-default)] bg-[var(--bg-raised)] rounded-[var(--radius-lg)] p-3 flex items-start gap-3 hover:border-[var(--border-strong)] transition-colors">
-                        <div className={`w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center flex-shrink-0 ${isImage ? 'bg-[var(--accent-orange-soft)] text-[var(--accent-orange)]' : 'bg-[var(--bg-surface)] text-[var(--text-secondary)]'}`}>
+                        <div className={`w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center flex-shrink-0 ${isImage ? 'bg-[var(--accent-blue-soft)] text-[var(--accent-blue)]' : 'bg-[var(--bg-surface)] text-[var(--text-secondary)]'}`}>
 
                             <Icon className="w-5 h-5" />
                         </div>
@@ -56,7 +56,7 @@ export default function AttachmentList({ attachments, ticketId }) {
                         <div className="absolute right-2 top-2 flex flex-col gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100 [&:hover]:opacity-100" style={{opacity: 1}}>
                             <a 
                                 href={route('tickets.attachments.download', { ticket: ticketId, ticket_attachment: file.id })}
-                                className="p-1.5 bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--accent-orange)] rounded hover:bg-[var(--bg-overlay)] transition-colors"
+                                className="p-1.5 bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--accent-blue)] rounded hover:bg-[var(--bg-overlay)] transition-colors"
                 title="Download"
                                 download
                             >

@@ -40,7 +40,7 @@ export function BulkActionBar({ selectedIds = [], onClear, subjects = [] }) {
             <div className="flex items-center gap-3 bg-(--bg-overlay) border border-(--border-strong) shadow-xl px-4 py-2.5 rounded-full">
                 
                 <div className="flex items-center gap-2 pr-3 border-r border-(--border-subtle)">
-                    <span className="bg-(--accent-orange) text-(--text-inverse) text-[11px] font-bold px-2 py-0.5 rounded-full">
+                    <span className="bg-(--accent-blue) text-white text-[11px] font-bold px-2 py-0.5 rounded-full">
                         {selectedIds.length}
                     </span>
                     <span className="text-[13px] font-medium text-(--text-primary)">Selected</span>

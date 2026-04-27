@@ -36,9 +36,9 @@ export function DeadlineIndicator({ deadline, isClosed = false, className }) {
         };
     } else if (diffDays <= 1) {
         config = {
-            color: 'text-[var(--accent-orange)] font-semibold',
-            bg: 'bg-[var(--accent-orange-soft)]',
-            border: 'border-[var(--accent-orange-soft)]',
+            color: 'text-[var(--accent-blue)] font-semibold',
+            bg: 'bg-[var(--accent-blue-soft)]',
+            border: 'border-[var(--accent-blue-soft)]',
             icon: <Clock className="w-3.5 h-3.5" />
         };
     } else if (diffDays <= 3) {

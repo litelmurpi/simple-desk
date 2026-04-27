@@ -78,7 +78,7 @@ export default function Index({ tickets, subjects, tags, filters }) {
                     <div>
                         <Button 
                             onClick={() => setIsQuickAddVisible(!isQuickAddVisible)}
-                            className="bg-[var(--accent-orange)] text-[var(--text-inverse)] hover:bg-[oklch(from_var(--accent-orange)_calc(l_-_0.1)_c_h)] transition-colors shadow-sm font-medium mr-2"
+                            className="bg-[var(--accent-blue)] text-white hover:opacity-90 transition-colors shadow-sm font-medium mr-2"
                         >
                             Quick Add (N)
                         </Button>
@@ -98,7 +98,7 @@ export default function Index({ tickets, subjects, tags, filters }) {
                             placeholder="Search by SD-XXXX or title..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 h-9 bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-strong)] focus-visible:border-[var(--accent-orange)] focus-visible:ring-1 focus-visible:ring-[var(--accent-orange)] text-[var(--text-body)] text-[var(--text-primary)] transition-all rounded-[var(--radius-md)]"
+                            className="pl-9 h-9 bg-[var(--bg-surface)] border-[var(--border-default)] hover:border-[var(--border-strong)] focus-visible:border-[var(--accent-blue)] focus-visible:ring-1 focus-visible:ring-[var(--accent-blue)] text-[var(--text-body)] text-[var(--text-primary)] transition-all rounded-[var(--radius-md)]"
                         />
                     </form>
 
@@ -177,7 +177,7 @@ export default function Index({ tickets, subjects, tags, filters }) {
                         <div className="w-8 flex justify-center">
                             {tickets.data.length > 0 && (
                                 <Checkbox 
-                                    className="border-[var(--border-strong)] rounded-sm data-[state=checked]:bg-[var(--accent-orange)] data-[state=checked]:border-[var(--accent-orange)]"
+                                    className="border-[var(--border-strong)] rounded-sm data-[state=checked]:bg-[var(--accent-blue)] data-[state=checked]:border-[var(--accent-blue)]"
                                     checked={tickets.data.length > 0 && selectedIds.length === tickets.data.length}
                                     onCheckedChange={toggleAll}
                                 />
@@ -195,8 +195,8 @@ export default function Index({ tickets, subjects, tags, filters }) {
                     <div className="flex-1 overflow-y-auto custom-scrollbar">
                         {tickets.data.length === 0 ? (
                             <div className="empty-state">
-                                <div className="empty-state-icon bg-[var(--accent-orange-soft)]">
-                                    <Inbox className="w-6 h-6 text-[var(--accent-orange)]" />
+                                <div className="empty-state-icon bg-[var(--accent-blue-soft)]">
+                                    <Inbox className="w-6 h-6 text-[var(--accent-blue)]" />
                                 </div>
                                 <p className="empty-state-title">No issues found</p>
                                 <p className="empty-state-description mb-4">
@@ -242,7 +242,7 @@ export default function Index({ tickets, subjects, tags, filters }) {
                                             className={cn(
                                                 "relative inline-flex items-center px-3 py-1.5 text-[13px] font-medium border transition-colors first:rounded-l-md last:rounded-r-md",
                                                 link.active 
-                                                    ? "z-10 bg-[var(--accent-orange-soft)] border-[var(--accent-orange)] text-[var(--accent-orange)]" 
+                                                    ? "z-10 bg-[var(--accent-blue-soft)] border-[var(--accent-blue)] text-[var(--accent-blue)]" 
                                                     : "bg-transparent border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]"
                                             )}
                                             dangerouslySetInnerHTML={{ __html: link.label }}

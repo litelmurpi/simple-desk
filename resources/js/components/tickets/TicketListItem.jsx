@@ -32,7 +32,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
             colorClass = 'text-(--accent-red) font-semibold';
             text = 'Overdue';
         } else if (diffDays === 0) {
-            colorClass = 'text-(--accent-orange) font-semibold';
+            colorClass = 'text-(--accent-blue) font-semibold';
             text = 'Today';
         } else if (diffDays === 1) {
             colorClass = 'text-(--accent-yellow)';
@@ -55,7 +55,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
             {/* Left Selection Indicator (Subtle) */}
             <div className={cn(
                 "absolute left-0 top-0 bottom-0 w-[3px] transition-colors duration-300 ease-out rounded-r-full",
-                isSelected ? "bg-(--accent-orange)" : "bg-transparent group-hover:bg-(--accent-orange)/40"
+                isSelected ? "bg-(--accent-blue)" : "bg-transparent group-hover:bg-(--accent-blue)/40"
             )} />
 
             {/* Checkbox */}
@@ -63,7 +63,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                 <Checkbox 
                     checked={isSelected}
                     onCheckedChange={() => onSelect(ticket.id)}
-                    className="border-(--border-strong) data-[state=checked]:bg-(--accent-orange) data-[state=checked]:border-(--accent-orange) transition-all duration-200 opacity-0 group-hover:opacity-100 data-[state=checked]:opacity-100 scale-95 group-hover:scale-100 data-[state=checked]:scale-100"
+                    className="border-(--border-strong) data-[state=checked]:bg-(--accent-blue) data-[state=checked]:border-(--accent-blue) transition-all duration-200 opacity-0 group-hover:opacity-100 data-[state=checked]:opacity-100 scale-95 group-hover:scale-100 data-[state=checked]:scale-100"
                 />
             </div>
 
@@ -95,7 +95,7 @@ export function TicketListItem({ ticket, isSelected, onSelect }) {
                             <span className="text-[12px] font-mono text-(--text-tertiary) whitespace-nowrap transition-colors duration-200 group-hover/link:text-(--text-secondary)">
                                 {ticket.ticket_number}
                             </span>
-                            <span className="text-[14px] font-semibold text-(--text-primary) truncate transition-colors duration-200 group-hover/link:text-(--accent-orange)">
+                            <span className="text-[14px] font-semibold text-(--text-primary) truncate transition-colors duration-200 group-hover/link:text-(--accent-blue)">
                                 {ticket.title}
                             </span>
                         </Link>
